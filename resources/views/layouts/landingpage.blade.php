@@ -5,6 +5,8 @@
     <!-- Meta Tags -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <meta name="keywords"
         content="diagnostic services, blood tests, pathology lab, home sample collection, PAN India, health checkups, lab tests, pathology, health diagnostics, medical tests, sample collection">
     <meta name="description"
@@ -78,14 +80,14 @@
     <link rel="stylesheet" href="{{asset('lab/css/magnific-popup.css')}}">
 
     <!-- Medipro CSS -->
-    <link rel="stylesheet" href="{{asset('lab/css/normalize.css')}}" >
+    <link rel="stylesheet" href="{{asset('lab/css/normalize.css')}}">
     <link rel="stylesheet" href="{{asset('lab/style.css')}}">
     <link rel="stylesheet" href="{{asset('lab/css/responsive.css')}}">
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script>
+    <!-- <script>
         AOS.init();
-    </script>
+    </script> -->
 
     <style>
         .button-container {
@@ -418,7 +420,8 @@
                             <div class="col-lg-3 col-md-3 col-12">
                                 <!-- Start Logo -->
                                 <div class="logo">
-                                    <a href="{{route('index')}}"><img src="{{asset('lab/img/trustlogofull.png')}}" alt="#"></a>
+                                    <a href="{{route('index')}}"><img src="{{asset('lab/img/trustlogofull.png')}}"
+                                            alt="#"></a>
                                 </div>
                                 <!-- End Logo -->
                                 <!-- Mobile Nav -->
@@ -430,132 +433,35 @@
                                 <div class="main-menu">
                                     <nav class="navigation">
                                         <ul class="nav menu">
-                                            <li><a href="{{route('diagnosticsolutions')}}">Home</a></li>
-                                            <li><a href="{{route('membership')}}">Membership</a></li>
-
-                                            <!-- <li><a href="{{route('index')}}">About Us</a></li> -->
-
-                                            <!-- <li><a href="#">Services </a></li> -->
-                                            <!-- <li><a href="{{route('aboutus')}}">About Us <i class="icofont-rounded-down"></i>
-                                                </a>
-                                                <ul class="dropdown">
-                                                    <li><a href="{{route('aboutus')}}">About Us</a></li>
-                                                    <li><a href="{{route('boardOfDirectors')}}">Board of Directors</a></li>
-                                                    <li><a href="{{route('boardOfAdvisors')}}">Advisory Board</a></li>
-                                                    <li><a href="{{route('leadershipteam')}}">Leadership Team</a></li>
-                                                    <li><a href="{{route('ourDoctors')}}">Our Doctors</a></li>
-                                                   
-                                                </ul>
-                                            </li> -->
-
-                                            <li class="active"><a href="{{route('index')}}">Book a Test </a>
-
+                                            <li class="{{ Request::is('diagnosticsolutions') ? 'active' : '' }}">
+                                                <a href="{{ route('diagnosticsolutions') }}">Home</a>
                                             </li>
-
-                                            <!-- <li><a href="{{route('index')}}">Reports <i class="fa fa-download" aria-hidden="true"></i> </a>  </li> -->
-
-                                            <li><a href="{{route('login')}}">Reports<i class="icofont-rounded-down"></i> </a>
+                                            <li class="{{ Request::is('membership') ? 'active' : '' }}">
+                                                <a href="{{ route('membership') }}">Membership</a>
+                                            </li>
+                                            <li class="{{ Request::is('index') ? 'active' : '' }}">
+                                                <a href="{{ route('index') }}">Book a Test</a>
+                                            </li>
+                                            <li class="{{ Request::is('login') ? 'active' : '' }}">
+                                                <a href="{{ route('login') }}">Reports<i
+                                                        class="icofont-rounded-down"></i></a>
                                                 <ul class="dropdown">
-                                                    <li><a href="{{route('login')}}">Patients</a></li>
-                                                    <li><a href="{{route('login')}}">Healthcare Professionals</a></li>
-                                                    <li><a href="{{route('login')}}">Corporate Providers</a>
-                                                    </li>
+                                                    <li><a href="{{ route('login') }}">Patients</a></li>
+                                                    <li><a href="{{ route('login') }}">Healthcare Professionals</a></li>
+                                                    <li><a href="{{ route('login') }}">Corporate Providers</a></li>
                                                 </ul>
                                             </li>
-
-
-
-                                            <li><a href="{{route('partnership')}}">Collaborate</a>
-
+                                            <li class="{{ Request::is('partnership') ? 'active' : '' }}">
+                                                <a href="{{ route('partnership') }}">Collaborate</a>
                                             </li>
-
-                                            <!-- <li><a href="#">Resources <i class="icofont-rounded-down"></i> </a>
-                                                <ul class="dropdown">
-                                                    <li><a href="blog-{{route('single')}}">Our Blogs</a></li>
-                                                    <li><a href="{{route('brouchers')}}">TRUSTlab Brochures</a></li>
-                                                    <li><a href="{{route('diagnosticexpertise')}}">Our Diagnostic Expertise</a>
-                                                    </li>
-                                                    <li><a href="{{route('newsroom')}}">TRUSTlab in the News</a></li>
-                                                    <li><a href="{{route('scientificPublications')}}">Our
-                                                            Scientific Publications</a></li>
-                                                    
-                                                </ul>
-                                            </li> -->
-                                            <!-- <li><a href="#">Services <i class="icofont-rounded-down"></i></a>
-												<ul class="dropdown">
-													<li><a href="{{route('login')}}">Book a Test</a></li>
-													<li><a href="{{route('login')}}">Doctor Appointment</a></li>
-													<li><a href="{{route('login')}}">Order Medicine</a></li>
-
-												</ul>
-											</li> -->
-
-                                            <!-- <li><a href="{{route('partnership')}}">Collaborate</a> -->
-
-                                            <!-- <li><a href="{{route('index')}}">Partnership </a> -->
-                                            <!-- <ul class="dropdown">
-													<li><a href="blog-{{route('single')}}">Blog Details</a></li>
-												</ul>
-                                            </li> -->
-
-                                            <!-- <li><a href="{{route('careers')}}">Partnership<i class="icofont-rounded-down"></i> </a>
-                                                <ul class="dropdown">
-                                                    <li><a href="{{route('lifeAtTRUSTlab')}}">Laboratory</a></li>
-                                                    <li><a href="{{route('currentOpportunities')}}">Collection Center</a>
-                                                    </li>
-                                                    
-                                                </ul>
-                                            </li> -->
                                         </ul>
                                     </nav>
+
                                 </div>
                                 <!--/ End Main Menu -->
                             </div>
                             <div class="col-lg-2 col-12">
-                                <!-- <div class="menu-icon" onclick="toggleDrawer()">
-                                    <div class="bar"></div>
-                                    <div class="bar"></div>
-                                    <div class="bar"></div>
-                                </div>
-                                
-                                <div class="drawer" id="drawer">
-                                    <div class="drawer-content">
-                                        <div class="close-icon" onclick="toggleDrawer()">&times;</div>
-                                        <div class="drawer-list">
-                                            <div class="drawer-item">
-                                                <p onclick="toggleDropdown(this)">About Us <span class="arrow">&#9662;</span></p>
-                                                <div class="drawer-dropdown">
-                                                    <p onclick="navigateTo('{{route('aboutus')}}')">Who We Are</p>
-                                                    <p onclick="navigateTo('{{route('boardOfDirectors')}}')">Board of Directors</p>
-                                                    <p onclick="navigateTo('{{route('boardOfAdvisors')}}')">Board of Advisors</p>
-                                                    <p onclick="navigateTo('{{route('leadershipteam')}}')">Leadership Team</p>
-                                                    <p onclick="navigateTo('{{route('ourDoctors')}}')">Our Doctors</p>
-                                                </div>
-                                            </div>
-                                            <div class="drawer-item">
-                                                <p onclick="toggleDropdown(this)">Resources <span class="arrow">&#9662;</span></p>
-                                                <div class="drawer-dropdown">
-                                                    <p onclick="navigateTo('blog-{{route('single')}}')">Our Blogs</p>
-                                                    <p onclick="navigateTo('{{route('brouchers')}}')">TRUSTlab Brochures</p>
-                                                    <p onclick="navigateTo('{{route('diagnosticexpertise')}}')">Our Diagnostic Expertise</p>
-                                                    <p onclick="navigateTo('{{route('newsroom')}}')">TRUSTlab in the News</p>
-                                                    <p onclick="navigateTo('{{route('scientificPublications')}}')">Our Scientific Publications</p>
-                                                </div>
-                                            </div>
-                                            <div class="drawer-item">
-                                                <p onclick="toggleDropdown(this)">Careers <span class="arrow">&#9662;</span></p>
-                                                <div class="drawer-dropdown">
-                                                    <p onclick="navigateTo('{{route('lifeAtTRUSTlab')}}')">Life at TRUSTlab</p>
-                                                    <p onclick="navigateTo('{{route('currentOpportunities')}}')">Current Opportunities</p>
-                                                    <p onclick="navigateTo('{{route('careers')}}')">Join Our Talent Pool</p>
-                                                </div>
-                                            </div>
-                                            <div class="drawer-item">
-                                                <p onclick="navigateTo('{{route('contact')}}')">Contact Us</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
+
                                 <div class="menu-icon" onclick="toggleDrawer()">
                                     <div class="bar"></div>
                                     <div class="bar"></div>
@@ -573,9 +479,11 @@
                                                     <p onclick="navigateTo('{{route('aboutus')}}')">• Who We Are</p>
                                                     <p onclick="navigateTo('{{route('boardOfDirectors')}}')">• Board of
                                                         Directors</p>
-                                                    <p onclick="navigateTo('{{route('boardOfAdvisors')}}')">• Board of Advisors
+                                                    <p onclick="navigateTo('{{route('boardOfAdvisors')}}')">• Board of
+                                                        Advisors
                                                     </p>
-                                                    <p onclick="navigateTo('{{route('leadershipteam')}}')">• Leadership Team</p>
+                                                    <p onclick="navigateTo('{{route('leadershipteam')}}')">• Leadership
+                                                        Team</p>
                                                     <p onclick="navigateTo('{{route('ourDoctors')}}')">• Our Doctors</p>
                                                 </div>
                                             </div>
@@ -583,11 +491,14 @@
                                                 <p onclick="toggleDropdown(this)">Resources <span
                                                         class="arrow">&#9662;</span></p>
                                                 <div class="drawer-dropdown">
-                                                    <p onclick="navigateTo('blog-{{route('single')}}')">• Our Blogs</p>
-                                                    <p onclick="navigateTo('{{route('brouchers')}}')">• TRUSTlab Brochures</p>
-                                                    <p onclick="navigateTo('{{route('diagnosticexpertise')}}')">• Our Diagnostic
+                                                    <p onclick="navigateTo('{{route('blog')}}')">• Our Blogs</p>
+                                                    <p onclick="navigateTo('{{route('brouchers')}}')">• TRUSTlab
+                                                        Brochures</p>
+                                                    <p onclick="navigateTo('{{route('diagnosticexpertise')}}')">• Our
+                                                        Diagnostic
                                                         Expertise</p>
-                                                    <p onclick="navigateTo('{{route('newsroom')}}')">• TRUSTlab in the News</p>
+                                                    <p onclick="navigateTo('{{route('newsroom')}}')">• TRUSTlab in the
+                                                        News</p>
                                                     <p onclick="navigateTo('{{route('scientificPublications')}}')">• Our
                                                         Scientific Publications</p>
                                                 </div>
@@ -596,15 +507,30 @@
                                                 <p onclick="toggleDropdown(this)">Careers <span
                                                         class="arrow">&#9662;</span></p>
                                                 <div class="drawer-dropdown">
-                                                    <p onclick="navigateTo('{{route('lifeAtTRUSTlab')}}')">• Life at TRUSTlab
+                                                    <p onclick="navigateTo('{{route('lifeAtTRUSTlab')}}')">• Life at
+                                                        TRUSTlab
                                                     </p>
-                                                    <p onclick="navigateTo('{{route('currentOpportunities')}}')">• Current
+                                                    <p onclick="navigateTo('{{route('currentOpportunities')}}')">•
+                                                        Current
                                                         Opportunities</p>
-                                                    <p onclick="navigateTo('{{route('careers')}}')">• Join Our Talent Pool</p>
+                                                    <p onclick="navigateTo('{{route('careers')}}')">• Join Our Talent
+                                                        Pool</p>
                                                 </div>
                                             </div>
                                             <div class="drawer-item">
                                                 <p onclick="navigateTo('{{route('contact')}}')">Contact Us</p>
+                                            </div>
+                                            <div class="drawer-item">
+
+                                                <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                                    <p>Logout</p>
+                                                </a>
+
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                    class="d-none">
+                                                    @csrf
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -893,7 +819,34 @@
     </script>
 
 
-  ]
+
+
+    <script>
+
+        function toggleDrawer() {
+            const drawer = document.getElementById("drawer");
+            drawer.classList.toggle("open");
+        }
+
+        function toggleDropdown(element) {
+            const dropdown = element.nextElementSibling;
+            const arrow = element.querySelector('.arrow');
+
+            if (dropdown.style.maxHeight) {
+                dropdown.style.maxHeight = null;
+                arrow.style.transform = "rotate(0deg)";
+            } else {
+                dropdown.style.maxHeight = dropdown.scrollHeight + "px";
+                arrow.style.transform = "rotate(180deg)";
+            }
+        }
+
+        function navigateTo(url) {
+            window.location.href = url;
+        }
+
+
+    </script>
 
 
 </body>

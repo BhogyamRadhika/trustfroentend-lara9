@@ -285,44 +285,19 @@
 
         <!-- Test Items -->
         <div class="cart-items">
-            <div class="cart-item">
-                <div class="test-name">Serum Creatinine</div>
-                <div class="add-member-btn">
-                    <select class="test-select" onchange="updateTotalFromSelect(this)">
-                        <option value="0">Select Amount</option>
-                        <option value="210">Rs. 210/-</option>
-                        <option value="250">Rs. 250/-</option>
-                        <option value="300">Rs. 300/-</option>
-                    </select>
+            @php
+                $subtotal = 0;
+            @endphp
+            @foreach ($list_of_tests as $test)
+                <div class="cart-item">
+                    <div class="test-name">{{ $test['test_name'] }}</div>
+                    <div class="add-member-btn">{{ $test['test_name'] }}</div>
+                    <div class="test-price">₹{{ number_format($test['amount'], 0) }}</div>
                 </div>
-                <div class="test-price">Rs. 210/-</div>
-            </div>
-
-            <div class="cart-item">
-                <div class="test-name">Liver Function Test (LFT)</div>
-                <div class="add-member-btn">
-                    <select class="test-select" onchange="updateTotalFromSelect(this)">
-                        <option value="0">Select Amount</option>
-                        <option value="660">Rs. 660/-</option>
-                        <option value="700">Rs. 700/-</option>
-                        <option value="750">Rs. 750/-</option>
-                    </select>
-                </div>
-                <div class="test-price">Rs. 660/-</div>
-            </div>
-
-            <div class="cart-item">
-                <div class="test-name">CUE (Complete Urine Examination)</div>
-                <div class="add-member-btn">
-                    <select class="test-select" onchange="updateTotalFromSelect(this)">
-                        <option value="0">Select Amount</option>
-                        <option value="250">Rs. 250/-</option>
-                        <option value="300">Rs. 300/-</option>
-                        <option value="350">Rs. 350/-</option>
-                    </select>
-                </div>
-                <div class="test-price">Rs. 250/-</div>
-            </div>
+                @php
+                    $subtotal += $test['amount']; // Calculate the subtotal
+                @endphp
+            @endforeach
         </div>
     </div>
 

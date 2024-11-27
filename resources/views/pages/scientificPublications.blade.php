@@ -106,10 +106,10 @@
     <div class="brochures-grid">
 
         <div class="brochure-card">
-            <img src="img/Homozygous-Deletion.png" alt="Brochure 1">
+            <img src="{{asset('lab/img/Homozygous-Deletion.png')}}" alt="Brochure 1">
             <h3 class="brochure-title">Identification Of Novel Homozygous Deletion</h3>
 
-            <a href="img/publications/Novel-Homozygous-Deletion.pdf" class="download-btn" download>Download PDF</a>
+            <a href="{{asset('lab/img/publications/Novel-Homozygous-Deletion.pdf')}}" class="download-btn" download>Download PDF</a>
         </div>
 
         <!-- <div class="brochure-card">

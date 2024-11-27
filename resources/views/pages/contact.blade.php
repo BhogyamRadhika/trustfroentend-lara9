@@ -28,7 +28,7 @@
                 <div class="col-lg-6">
                     <div class="contact-us-left">
 
-                        <img src="img/custom.png" alt="#">
+                        <img src="{{asset('lab/img/custom.png')}}" alt="#">
 
                     </div>
                 </div>
@@ -137,7 +137,7 @@
             </p>
             <div class="location-contact">
                 <a href="tel:+919876543210" class="call-link">
-                    <img src="img/callicon.png" alt="Call Icon" class="phone-icon"> +91-9876543210
+                    <img src="{{asset('lab/img/callicon.png')}}" alt="Call Icon" class="phone-icon"> +91-9876543210
                 </a>
                 <a href="https://goo.gl/maps/example1" target="_blank" class="location-link">
                     View on Map
@@ -152,7 +152,7 @@
             </p>
             <div class="location-contact">
                 <a href="tel:+919876543210" class="call-link">
-                    <img src="img/callicon.png" alt="Call Icon" class="phone-icon"> +91-9876543210
+                    <img src="{{asset('lab/img/callicon.png')}}" alt="Call Icon" class="phone-icon"> +91-9876543210
                 </a>
                 <a href="https://goo.gl/maps/example1" target="_blank" class="location-link">
                     View on Map
@@ -167,7 +167,7 @@
             </p>
             <div class="location-contact">
                 <a href="tel:+919876543211" class="call-link">
-                    <img src="img/callicon.png" alt="Call Icon" class="phone-icon"> +91-9876543211
+                    <img src="{{asset('lab/img/callicon.png')}}" alt="Call Icon" class="phone-icon"> +91-9876543211
                 </a>
                 <a href="https://goo.gl/maps/example2" target="_blank" class="location-link">
                     View on Map
@@ -181,7 +181,7 @@
             </p>
             <div class="location-contact">
                 <a href="tel:+919876543212" class="call-link">
-                    <img src="img/callicon.png" alt="Call Icon" class="phone-icon"> +91-9876543212
+                    <img src="{{asset('lab/img/callicon.png')}}" alt="Call Icon" class="phone-icon"> +91-9876543212
                 </a>
                 <a href="https://goo.gl/maps/example3" target="_blank" class="location-link">
                     View on Map
@@ -196,7 +196,7 @@
             </p>
             <div class="location-contact">
                 <a href="tel:+919876543212" class="call-link">
-                    <img src="img/callicon.png" alt="Call Icon" class="phone-icon"> +91-9876543212
+                    <img src="{{asset('lab/img/callicon.png')}}" alt="Call Icon" class="phone-icon"> +91-9876543212
                 </a>
                 <a href="https://goo.gl/maps/example3" target="_blank" class="location-link">
                     View on Map
@@ -211,7 +211,7 @@
             </p>
             <div class="location-contact">
                 <a href="tel:+919876543212" class="call-link">
-                    <img src="img/callicon.png" alt="Call Icon" class="phone-icon"> +91-9876543212
+                    <img src="{{asset('lab/img/callicon.png')}}" alt="Call Icon" class="phone-icon"> +91-9876543212
                 </a>
                 <a href="https://goo.gl/maps/example3" target="_blank" class="location-link">
                     View on Map
@@ -226,7 +226,7 @@
             </p>
             <div class="location-contact">
                 <a href="tel:+919876543212" class="call-link">
-                    <img src="img/callicon.png" alt="Call Icon" class="phone-icon"> +91-9876543212
+                    <img src="{{asset('lab/img/callicon.png')}}" alt="Call Icon" class="phone-icon"> +91-9876543212
                 </a>
                 <a href="https://goo.gl/maps/example3" target="_blank" class="location-link">
                     View on Map
@@ -241,7 +241,7 @@
             </p>
             <div class="location-contact">
                 <a href="tel:+919876543212" class="call-link">
-                    <img src="img/callicon.png" alt="Call Icon" class="phone-icon"> +91-9876543212
+                    <img src="{{asset('lab/img/callicon.png')}}" alt="Call Icon" class="phone-icon"> +91-9876543212
                 </a>
                 <a href="https://goo.gl/maps/example3" target="_blank" class="location-link">
                     View on Map
@@ -256,7 +256,7 @@
             </p>
             <div class="location-contact">
                 <a href="tel:+919876543212" class="call-link">
-                    <img src="img/callicon.png" alt="Call Icon" class="phone-icon"> +91-9876543212
+                    <img src="{{asset('lab/img/callicon.png')}}" alt="Call Icon" class="phone-icon"> +91-9876543212
                 </a>
                 <a href="https://goo.gl/maps/example3" target="_blank" class="location-link">
                     View on Map
@@ -271,7 +271,7 @@
             </p>
             <div class="location-contact">
                 <a href="tel:+919876543212" class="call-link">
-                    <img src="img/callicon.png" alt="Call Icon" class="phone-icon"> +91-9876543212
+                    <img src="{{asset('lab/img/callicon.png')}}" alt="Call Icon" class="phone-icon"> +91-9876543212
                 </a>
                 <a href="https://goo.gl/maps/example3" target="_blank" class="location-link">
                     View on Map
@@ -286,7 +286,7 @@
             </p>
             <div class="location-contact">
                 <a href="tel:+919876543212" class="call-link">
-                    <img src="img/callicon.png" alt="Call Icon" class="phone-icon"> +91-9876543212
+                    <img src="{{asset('lab/img/callicon.png')}}" alt="Call Icon" class="phone-icon"> +91-9876543212
                 </a>
                 <a href="https://goo.gl/maps/example3" target="_blank" class="location-link">
                     View on Map
@@ -301,7 +301,7 @@
             </p>
             <div class="location-contact">
                 <a href="tel:+919876543212" class="call-link">
-                    <img src="img/callicon.png" alt="Call Icon" class="phone-icon"> +91-9876543212
+                    <img src="{{asset('lab/img/callicon.png')}}" alt="Call Icon" class="phone-icon"> +91-9876543212
                 </a>
                 <a href="https://goo.gl/maps/example3" target="_blank" class="location-link">
                     View on Map
@@ -316,7 +316,7 @@
             </p>
             <div class="location-contact">
                 <a href="tel:+919876543212" class="call-link">
-                    <img src="img/callicon.png" alt="Call Icon" class="phone-icon"> +91-9876543212
+                    <img src="{{asset('lab/img/callicon.png')}}" alt="Call Icon" class="phone-icon"> +91-9876543212
                 </a>
                 <a href="https://goo.gl/maps/example3" target="_blank" class="location-link">
                     View on Map
@@ -331,7 +331,7 @@
             </p>
             <div class="location-contact">
                 <a href="tel:+919876543212" class="call-link">
-                    <img src="img/callicon.png" alt="Call Icon" class="phone-icon"> +91-9876543212
+                    <img src="{{asset('lab/img/callicon.png')}}" alt="Call Icon" class="phone-icon"> +91-9876543212
                 </a>
                 <a href="https://goo.gl/maps/example3" target="_blank" class="location-link">
                     View on Map
@@ -346,7 +346,7 @@
             </p>
             <div class="location-contact">
                 <a href="tel:+919876543212" class="call-link">
-                    <img src="img/callicon.png" alt="Call Icon" class="phone-icon"> +91-9876543212
+                    <img src="{{asset('lab/img/callicon.png')}}" alt="Call Icon" class="phone-icon"> +91-9876543212
                 </a>
                 <a href="https://goo.gl/maps/example3" target="_blank" class="location-link">
                     View on Map
@@ -361,7 +361,7 @@
             </p>
             <div class="location-contact">
                 <a href="tel:+919876543212" class="call-link">
-                    <img src="img/callicon.png" alt="Call Icon" class="phone-icon"> +91-9876543212
+                    <img src="{{asset('lab/img/callicon.png')}}" alt="Call Icon" class="phone-icon"> +91-9876543212
                 </a>
                 <a href="https://goo.gl/maps/example3" target="_blank" class="location-link">
                     View on Map
@@ -377,7 +377,7 @@
             </p>
             <div class="location-contact">
                 <a href="tel:+919876543212" class="call-link">
-                    <img src="img/callicon.png" alt="Call Icon" class="phone-icon"> +91-9876543212
+                    <img src="{{asset('lab/img/callicon.png')}}" alt="Call Icon" class="phone-icon"> +91-9876543212
                 </a>
                 <a href="https://goo.gl/maps/example3" target="_blank" class="location-link">
                     View on Map
@@ -387,4 +387,6 @@
 
     </div>
 </section>
+
+
 @endsection

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -25,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/index';
 
     /**
      * Create a new controller instance.
@@ -36,5 +38,40 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
+    }
+
+    public function login(Request $request)
+    {
+        // dd($request->all());
+        // Validate input
+        $request->validate([
+            'name' => 'required',
+            'phone' => 'required',
+            'otp' => 'required',
+        ]);
+
+        // Dummy OTP for testing
+        $testOtp = '1234';
+
+        // Check if the OTP is valid
+        if ($request->otp !== $testOtp) {
+            return back()->withErrors(['otp' => 'Invalid OTP'])->withInput();
+        }
+
+        // Perform further authentication logic
+        // Example: Check user credentials and log them in
+        $user = User::where('name', $request->name)
+            ->where('phone', $request->phone)
+            ->first();
+// dd($user);
+        if (!$user) {
+            return back()->withErrors(['name' => 'Invalid credentials'])->withInput();
+        }
+
+        // Log the user in
+        auth()->login($user);
+
+        // Redirect to dashboard or intended route
+        return redirect()->route('index');
     }
 }

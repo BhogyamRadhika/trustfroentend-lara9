@@ -27,7 +27,7 @@
             <div class="col-lg-12">
                 <div class="section-title">
                     <h2>Stay Updated with the Latest Health articles from TRUSTlab</h2>
-                    <img src="img/section-img.png" alt="#">
+                    <!-- <img src="img/section-img.png" alt="#"> -->
                     <!-- <p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p> -->
                 </div>
             </div>
@@ -50,6 +50,13 @@
 						</div>
 						
 					</div> -->
+
+            <div class="onesection-header">
+                <span class="onesection-title">Year 2024</span>
+                <div class="line"></div>
+                <div class="onesee-more">See More</div>
+            </div>
+
 
             <div class="col-lg-4 col-md-6 col-12">
                 <!-- Single Blog -->
@@ -74,7 +81,7 @@
                 <!-- Single Blog -->
                 <div class="single-news">
                     <div class="news-head">
-                        <img src="img/blogg2.jpg" alt="#">
+                        <img src="{{asset('lab/img/blogg2.jpg')}}" alt="#">
                     </div>
                     <div class="news-body">
                         <div class="news-content">
@@ -94,7 +101,7 @@
                 <!-- Single Blog -->
                 <div class="single-news">
                     <div class="news-head">
-                        <img src="img/blogg3.jpg" alt="#">
+                        <img src="{{asset('lab/img/blogg3.jpg')}}" alt="#">
                     </div>
                     <div class="news-body">
                         <div class="news-content">
@@ -107,6 +114,12 @@
                     </div>
                 </div>
                 <!-- End Single Blog -->
+            </div>
+
+            <div class="onesection-header">
+                <span class="onesection-title">Year 2023</span>
+                <div class="line"></div>
+                <div class="onesee-more">See More</div>
             </div>
 
             <div class="col-lg-4 col-md-6 col-12" style="margin-top: 20px;">
@@ -153,7 +166,7 @@
                 <!-- Single Blog -->
                 <div class="single-news">
                     <div class="news-head">
-                        <img src="/img/blogg4.jpg" alt="#">
+                        <img src="{{asset('lab/img/blogg4.jpg')}}" alt="#">
                     </div>
                     <div class="news-body">
                         <div class="news-content">
@@ -168,11 +181,17 @@
                 <!-- End Single Blog -->
             </div>
 
+            <div class="onesection-header">
+                <span class="onesection-title">Year 2022</span>
+                <div class="line"></div>
+                <div class="onesee-more">See More</div>
+            </div>
+
             <div class="col-lg-4 col-md-6 col-12" style="margin-top: 20px;">
                 <!-- Single Blog -->
                 <div class="single-news">
                     <div class="news-head">
-                        <img src="img/blogg5.jpg" alt="#">
+                        <img src="{{asset('lab/img/blogg5.jpg')}}" alt="#">
                     </div>
                     <div class="news-body">
                         <div class="news-content">
@@ -191,7 +210,7 @@
                 <!-- Single Blog -->
                 <div class="single-news">
                     <div class="news-head">
-                        <img src="img/blogg6.jpg" alt="#">
+                        <img src="{{asset('lab/img/blogg6.jpg')}}" alt="#">
                     </div>
                     <div class="news-body">
                         <div class="news-content">
@@ -206,11 +225,17 @@
                 <!-- End Single Blog -->
             </div>
 
+            <div class="onesection-header">
+                <span class="onesection-title">Year 2021</span>
+                <div class="line"></div>
+                <div class="onesee-more">See More</div>
+            </div>
+
             <div class="col-lg-4 col-md-6 col-12" style="margin-top: 20px;">
                 <!-- Single Blog -->
                 <div class="single-news">
                     <div class="news-head">
-                        <img src="img/blogg7.jpg" alt="#">
+                        <img src="{{asset('lab/img/blogg7.jpg')}}" alt="#">
                     </div>
                     <div class="news-body">
                         <div class="news-content">
