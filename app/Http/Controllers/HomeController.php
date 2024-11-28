@@ -153,7 +153,7 @@ class HomeController extends Controller
         $profiles = array_filter($tests, function ($test) {
             return stripos($test['test_name'], 'Profile') !== false;
         });
-        return view('pages.index', compact('profiles', 'groupedData'));
+        return view('pages.index', compact('profiles', 'groupedData' ,'tests'));
     }
 
     public function membership()

@@ -155,28 +155,39 @@
 
                 <div class="main-container milestone">
                     @foreach ($groupedData as $data)
-                        <div class="box">
-                            <div class="card">
-                                <div class="badge">50% Off</div>
-                                <h3>{{ $data['package']['title'] }}</h3>
-                                @foreach ($data['tests'] as $test)
-                                    <p>Includes <span
-                                            style="color: orangered; font-size: 1.15em; background-color: white; padding: 2%; border-radius: 100%; border: 0.5px solid #1F2B7B;">{{ count($test['parameters']) }}</span>
-                                        Parameters</p>
-                                    <div class="price-container">
-                                        <div class="price">
-                                            <del>₹{{ number_format($test['test_actual_price'], 0) }}</del>
-                                            <span
-                                                class="offer-price">₹{{ number_format($test['test_actual_price'] * 0.5, 0) }}</span>
+                                    <div class="box">
+                                        <div class="card">
+                                            <div class="badge">50% Off</div>
+                                            <h3>{{ $data['package']['title'] }}</h3>
+                                            @foreach ($data['tests'] as $test)
+                                                <p>Includes <span
+                                                        style="color: orangered; font-size: 1.15em; background-color: white; padding: 2%; border-radius: 100%; border: 0.5px solid #1F2B7B;">{{ count($test['parameters']) }}</span>
+                                                    Parameters</p>
+                                                <div class="price-container">
+                                                    <div class="price">
+                                                        <del>₹{{ number_format($test['test_actual_price'], 0) }}</del>
+                                                        <span
+                                                            class="offer-price">₹{{ number_format($test['test_actual_price'] * 0.5, 0) }}</span>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="buttons">
+                                                     <a onclick="openModal({
+                                                    &quot;package&quot;: {
+                                                        &quot;title&quot;: &quot;{{ $test['test_name'] }}&quot;
+                                                    },
+                                                    &quot;tests&quot;: [
+                                                        {
+                                                            &quot;test_name&quot;: &quot;{{ $test['test_name'] }}&quot;,
+                                                            &quot;test_actual_price&quot;: {{ $test['test_actual_price'] }}
+                                                        }
+                                                    ]
+                                                })" class="more-details" style="color: white;">More Details</a>
+                                                                    </div>
+                                            @endforeach
                                         </div>
                                     </div>
-                                    <div class="buttons">
-                                        <a onclick="openModal({{ json_encode(['package' => $data['package'], 'tests' => $data['tests']]) }})"
-                                            class="more-details" style="color: white;">More Details</a>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
                     @endforeach
                 </div>
 
@@ -485,150 +496,27 @@
                 <h2>Popular Tests</h>
             </div>
             <div class="main-container">
-
+                @foreach ($tests as  $test)
                 <div class="box">
                     <div class="card">
                         <!-- <div class="badge">50% Off</div> -->
-                        <h3>1, 25-Dihydroxy Vitamin D3</h3>
-                        <!-- <p>Includes <span
-                                      style="color: orangered; font-size: 1.15em; background-color: white; padding: 2%; border-radius: 100%; border: 0.5px solid #1F2B7B;">52</span>
-                                  Parameters</p> -->
+                        <h3>{{$test['test_name']}}</h3>
+                       
                         <div class="price-container">
                             <div class="price">
-                                <del>₹4300</del>
-                                <span class="offer-price">₹3400</span>
+                                <del>₹{{ number_format($test['test_actual_price'], 0) }}</del>
+                                <span class="offer-price">₹{{ number_format($test['test_actual_price'] * 0.5, 0) }}</span>
 
                             </div>
                         </div>
                         <div class="buttons">
                             <a href="#" class="more-details">More Details</a>
-                            <!-- <a href="#" class="add-to-cart"><i class="icofont-cart"></i> Add to Cart</a> -->
                         </div>
                     </div>
                 </div>
-                <div class="box">
-                    <div class="card">
-                        <!-- <div class="badge">50% Off</div> -->
-                        <h3>1, 25-Dihydroxy Vitamin D3</h3>
-                        <!-- <p>Includes <span
-                                        style="color: orangered; font-size: 1.15em; background-color: white; padding: 2%; border-radius: 100%; border: 0.5px solid #1F2B7B;">52</span>
-                                    Parameters</p> -->
-                        <div class="price-container">
-                            <div class="price">
-                                <del>₹4300</del>
-                                <span class="offer-price">₹3400</span>
-
-                            </div>
-                        </div>
-                        <div class="buttons">
-                            <a href="#" class="more-details">More Details</a>
-                            <!-- <a href="#" class="add-to-cart"><i class="icofont-cart"></i> Add to Cart</a> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="box">
-                    <div class="card">
-                        <!-- <div class="badge">50% Off</div> -->
-                        <h3>Albumin</h3>
-                        <!-- <p>Includes <span
-                                      style="color: orangered; font-size: 1.15em; background-color: white; padding: 2%; border-radius: 100%; border: 0.5px solid #1F2B7B;">08</span>
-                                  Parameters</p> -->
-                        <div class="price-container">
-                            <div class="price">
-                                <del>₹480</del>
-                                <span class="offer-price">₹150</span>
-
-                            </div>
-                        </div>
-                        <div class="buttons">
-                            <a href="#" class="more-details">More Details</a>
-                            <!-- <a href="#" class="add-to-cart"><i class="icofont-cart"></i> Add to Cart</a> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="box">
-                    <div class="card">
-                        <!-- <div class="badge">50% Off</div> -->
-                        <h3>Bilirubin Total</h3>
-                        <!-- <p>Includes <span
-                                      style="color: orangered; font-size: 1.15em; background-color: white; padding: 2%; border-radius: 100%; border: 0.5px solid #1F2B7B;">21</span>
-                                  Parameters</p> -->
-                        <div class="price-container">
-                            <div class="price">
-                                <del>₹500</del>
-                                <span class="offer-price">₹230</span>
-
-                            </div>
-                        </div>
-                        <div class="buttons">
-                            <a href="#" class="more-details">More Details</a>
-                            <!-- <a href="#" class="add-to-cart"><i class="icofont-cart"></i> Add to Cart</a> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="main-container">
-                <div class="box">
-                    <div class="card">
-                        <!-- <div class="badge">50% Off</div> -->
-                        <h3>Calcium-Urine</h3>
-                        <!-- <p>Includes <span
-                                  style="color: orangered; font-size: 1.15em; background-color: white; padding: 2%; border-radius: 100%; border: 0.5px solid #1F2B7B;">52</span>
-                              Parameters</p> -->
-                        <div class="price-container">
-                            <div class="price">
-                                <del>₹480</del>
-                                <span class="offer-price">₹250</span>
-
-                            </div>
-                        </div>
-                        <div class="buttons">
-                            <a href="#" class="more-details">More Details</a>
-                            <!-- <a href="#" class="add-to-cart"><i class="icofont-cart"></i> Add to Cart</a> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="box">
-                    <div class="card">
-                        <!-- <div class="badge">50% Off</div> -->
-                        <h3>Cholesterol-Total</h3>
-                        <!-- <p>Includes <span
-                                  style="color: orangered; font-size: 1.15em; background-color: white; padding: 2%; border-radius: 100%; border: 0.5px solid #1F2B7B;">08</span>
-                              Parameters</p> -->
-                        <div class="price-container">
-                            <div class="price">
-                                <del>₹360</del>
-                                <span class="offer-price">₹170</span>
-
-                            </div>
-                        </div>
-                        <div class="buttons">
-                            <a href="#" class="more-details">More Details</a>
-                            <!-- <a href="#" class="add-to-cart"><i class="icofont-cart"></i> Add to Cart</a> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="box">
-                    <div class="card">
-                        <!-- <div class="badge">50% Off</div> -->
-                        <h3>Glucose Fasting-Urine</h3>
-                        <!-- <p>Includes <span
-                                  style="color: orangered; font-size: 1.15em; background-color: white; padding: 2%; border-radius: 100%; border: 0.5px solid #1F2B7B;">21</span>
-                              Parameters</p> -->
-                        <div class="price-container">
-                            <div class="price">
-                                <del>₹150</del>
-                                <span class="offer-price">₹75</span>
-
-                            </div>
-                        </div>
-                        <div class="buttons">
-                            <a href="#" class="more-details">More Details</a>
-                            <!-- <a href="#" class="add-to-cart"><i class="icofont-cart"></i> Add to Cart</a> -->
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+                
+              
             </div>
             <!-- Content for Tests Tab -->
             <div class="test-info" style="margin-top: 30px;">
@@ -778,15 +666,15 @@
             <div class="theimagecen">
                 <img src="{{asset('lab/img/divider.png')}}">
             </div>
-            <form class="search-form" method="GET" action="https://edos.mytrustlab.com/">
+            <form class="search-form" method="GET" action="https://edos.mytrustlab.com/tests?location=617">
                 <div class="form-group">
                     <label for="keyword" style="color: white;">Keyword</label>
-                    <input type="text" id="keyword" name="keyword" placeholder="Enter keyword">
+                    <input type="text" id="keyword" name="key" placeholder="Enter keyword">
                 </div>
 
                 <div class="form-group">
                     <label for="test-name" style="color: white;">Test Name</label>
-                    <input type="text" id="test-name" name="test_name" placeholder="Enter test name">
+                    <input type="text" id="test-name" name="name" placeholder="Enter test name">
                 </div>
 
                 <div class="form-group">
@@ -1085,97 +973,100 @@
     // }
 
     function closeModal1() {
-      document.getElementById('custom-package-success-modal').style.display = 'none';
+        document.getElementById('custom-package-success-modal').style.display = 'none';
     }
 
     function openModal(data) {
-    // Ensure tests is converted to an array if it's an object
-    const tests = Array.isArray(data.tests) ? data.tests : [];
+        // Ensure tests is converted to an array if it's an object
+        console.log("Data passed to modal:", data);
+        const tests = Array.isArray(data.tests) ? data.tests : [];
+        console.log("Tests array:", tests);
 
-    // Update the modal title
-    const modalTitle = document.querySelector('.modal-title');
-    modalTitle.innerText = data.package.title || 'No Title';
+        // Update the modal title
+        const modalTitle = document.querySelector('.modal-title');
+        modalTitle.innerText = data.package.title || 'No Title';
 
-    // Update the test list
-    const testList = document.querySelector('.test-list');
-    testList.innerHTML = ''; // Clear previous items
+        // Update the test list
+        const testList = document.querySelector('.test-list');
+        testList.innerHTML = ''; // Clear previous items
 
-    // Update the modal price
-    const amountElement = document.querySelector('.modal-price');
-    amountElement.innerHTML = ''; // Clear previous amount
+        // Clear previous modal price
+        const amountElement = document.querySelector('.modal-price');
+        amountElement.innerHTML = ''; // Clear previous amount
 
-    let totalDiscountedAmount = 0; // Variable to store total discounted amount
+        let totalDiscountedAmount = 0; // Variable to store total discounted amount
 
-    tests.forEach(test => {
-        // Create a list item for each test name
-        const li = document.createElement('li');
-        li.innerText = test.test_name || 'Unnamed Test';
-        testList.appendChild(li);
+        tests.forEach(test => {
+            // Create a list item for each test name
+            const li = document.createElement('li');
+            li.innerText = test.test_name || 'Unnamed Test';
+            testList.appendChild(li);
 
-        // Calculate the discounted price for this test
-        const discountedPrice = Math.round(test.test_actual_price * 0.5); // Apply 50% discount and round to the nearest whole number
-        totalDiscountedAmount += discountedPrice; // Accumulate the discounted amount
-    });
+            // Calculate the discounted price for this test
+            const discountedPrice = Math.round(test.test_actual_price * 0.5); // Apply 50% discount and round to the nearest whole number
+            totalDiscountedAmount += discountedPrice; // Accumulate the discounted amount
+        });
 
-    // Display the total discounted price in the modal
-    amountElement.innerText = `₹ ${totalDiscountedAmount.toLocaleString()}`;
+        // Display the total discounted price in the modal
+        amountElement.innerText = `₹ ${totalDiscountedAmount.toLocaleString()}`;
 
-    // Ensure the button exists and assign the event handler
-    const addToCartBtn = document.getElementById('add-to-cart-btn');
-    if (addToCartBtn) {
-        addToCartBtn.onclick = function () {
-            const form = new FormData();
-            form.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
-            
-            // Append the tests data to the form
-            tests.forEach((test, index) => {
-                form.append(`tests[${index}][test_name]`, test.test_name || '');
-                form.append(`tests[${index}][amount]`, test.test_actual_price || '');
-            });
+        // Ensure the button exists and assign the event handler
+        const addToCartBtn = document.getElementById('add-to-cart-btn');
+        if (addToCartBtn) {
+            addToCartBtn.onclick = function () {
+                const form = new FormData();
+                form.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
 
-            // Perform AJAX request
-            fetch('/set_cart', {
-                method: 'POST',
-                body: form
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Check if the response is successful
-                if (data.message) {
-                    // Show success message in the modal
-                    const modalTitle = document.querySelector('.modal-title');
-                    modalTitle.innerText = 'Success'; // You can customize this title
+                // Append the tests data to the form
+                tests.forEach((test, index) => {
+                    form.append(`tests[${index}][test_name]`, test.test_name || '');
+                    form.append(`tests[${index}][amount]`, test.test_actual_price || '');
+                });
 
-                    const amountElement = document.querySelector('.modal-price');
-                    amountElement.innerText = data.message;  // Display the success message
-                } else {
-                    // Handle error or no success message case
-                    const modalTitle = document.querySelector('.modal-title');
-                    modalTitle.innerText = 'Error';
+                // Perform AJAX request
+                fetch('/set_cart', {
+                    method: 'POST',
+                    body: form
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Check if the response is successful
+                        if (data.message) {
+                            // Show success message in the modal
+                            const modalTitle = document.querySelector('.modal-title');
+                            modalTitle.innerText = 'Success'; // You can customize this title
 
-                    const amountElement = document.querySelector('.modal-price');
-                    amountElement.innerText = 'An error occurred, please try again.';
-                }
+                            const amountElement = document.querySelector('.modal-price');
+                            amountElement.innerText = data.message;  // Display the success message
+                        } else {
+                            // Handle error or no success message case
+                            const modalTitle = document.querySelector('.modal-title');
+                            modalTitle.innerText = 'Error';
 
-                // Open the modal
-                document.getElementById('custom-package-success-modal').style.display = 'flex';
-            })
-            .catch(error => {
-                console.error('Error adding to cart:', error);
-                // Handle fetch error
-                const modalTitle = document.querySelector('.modal-title');
-                modalTitle.innerText = 'Error';
+                            const amountElement = document.querySelector('.modal-price');
+                            amountElement.innerText = 'An error occurred, please try again.';
+                        }
 
-                const amountElement = document.querySelector('.modal-price');
-                amountElement.innerText = 'An error occurred, please try again later.';
-                document.getElementById('custom-package-modal').style.display = 'flex';
-            });
-        };
+                        // Open the modal
+                        document.getElementById('custom-package-success-modal').style.display = 'flex';
+                    })
+                    .catch(error => {
+                        console.error('Error adding to cart:', error);
+                        // Handle fetch error
+                        const modalTitle = document.querySelector('.modal-title');
+                        modalTitle.innerText = 'Error';
+
+                        const amountElement = document.querySelector('.modal-price');
+                        amountElement.innerText = 'An error occurred, please try again later.';
+                        document.getElementById('custom-package-modal').style.display = 'flex';
+                    });
+            };
+        }
+
+        // Open the modal
+        document.getElementById('custom-package-modal').style.display = 'flex';
     }
 
-    // Open the modal
-    document.getElementById('custom-package-modal').style.display = 'flex';
-}
 
     function closeModal() {
         document.getElementById('custom-package-modal').style.display = 'none';
