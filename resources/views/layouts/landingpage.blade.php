@@ -451,6 +451,10 @@
                             </div>
                             <div class="col-lg-7 col-md-9 col-12">
                                 <!-- Main Menu -->
+                                 @php
+                                 
+                                 $carts =  App\Models\Cart::where('user_id',Auth::id())->get()->count();
+                                 @endphp
                                 <div class="main-menu">
                                     <nav class="navigation">
                                         <ul class="nav menu">
@@ -474,6 +478,11 @@
                                             </li>
                                             <li class="{{ Request::is('partnership') ? 'active' : '' }}">
                                                 <a href="{{ route('partnership') }}">Collaborate</a>
+                                            </li>
+
+                                            <li class="{{ Request::is('cart') ? 'active' : '' }}">
+                                                <a href="{{ route('cart') }}"> <img src="{{asset('lab/img/cart.png')}}" alt="eDOS" width="20px" /><span
+                                                style="color: orangered; font-size: 1.15em; background-color: white; padding: 2%; border-radius: 100%; border: 0.5px solid #1F2B7B;">{{ $carts}}</span> </a>
                                             </li>
                                         </ul>
                                     </nav>

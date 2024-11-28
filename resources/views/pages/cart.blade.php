@@ -279,68 +279,47 @@
     <div class="cart-left">
         <!-- Breadcrumb -->
         <div class="cartbreadcrumb">
-            <a href="index.html">Home</a> / <a href="cart.html">Cart</a>
+            <a href="{{ route('index') }}">Home</a> / <a href="{{ route('cart') }}">Cart</a>
         </div>
-        <a href="index.html" class="back-to-tests">← Select Tests</a>
+        <a href="{{ route('index') }}" class="back-to-tests">← Select Tests</a>
 
         <!-- Test Items -->
         <div class="cart-items">
-            @php
-                $subtotal = 0;
-            @endphp
+            @php $subtotal = 0; @endphp
             @foreach ($list_of_tests as $test)
                 <div class="cart-item">
-                    <div class="test-name">{{ $test['test_name'] }}</div>
-                    <div class="add-member-btn">{{ $test['test_name'] }}</div>
-                    <div class="test-price">₹{{ number_format($test['amount'], 0) }}</div>
+                    <div class="test-name">{{ $test->test_name }}</div>
+                    <div class="test-price">₹{{ number_format($test->amount, 0) }}</div>
+                    @php $subtotal += $test->amount; @endphp
+    
+                    <form action="{{ route('cart.delete_cart', $test->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Remove</button>
+                    </form>
                 </div>
-                @php
-                    $subtotal += $test['amount']; // Calculate the subtotal
-                @endphp
+
             @endforeach
         </div>
     </div>
 
-    <!-- Right Column -->
     <div class="cart-right">
-        <!-- Sample Collection Details -->
-        <div class="collection-details">
-            <h4>Sample Collection Details</h4>
-            <label>
-                <input type="radio" name="collection-location" /> Add Lab Location
-            </label>
-            <label>
-                <input type="radio" name="collection-location" checked /> Add Home Address
-            </label>
-            <button>Add Address</button>
-        </div>
-
-        <!-- Appointment Slot -->
-        <div class="appointment-slot">
-            <h4>Pick Appointment Slot</h4>
-            <input type="date" />
-            <input type="time" />
-        </div>
-
         <!-- Total Charges -->
         <div class="total-charges">
             <h4>Total Charges</h4>
             <div class="subtotal">
                 <span>Subtotal</span>
-                <span id="subtotal">Rs. 0</span>
-            </div>
-            <div class="offers">
-                <span>Offers</span>
-                <span>--</span>
+                <span id="subtotal">₹{{ number_format($subtotal, 0) }}</span>
             </div>
             <div class="total">
                 <span>Total</span>
-                <span id="total">Rs. 0</span>
+                <span id="total">₹{{ number_format($subtotal, 0) }}</span>
             </div>
-            <button class="pay-btn" onclick="payWithRazorpay()">Proceed to Pay</button>
+            <button class="pay-btn">Proceed to Pay</button>
         </div>
     </div>
 </div>
+
 
 
 <!-- Start Newsletter Area -->

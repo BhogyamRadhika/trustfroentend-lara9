@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -85,38 +86,79 @@ class HomeController extends Controller
         return view('pages.biochemistry');
     }
     public function cart(Request $request)
-    {
-        // Retrieve the list of tests from the POST request
-        $list_of_tests = $request->input('tests', []); // Default to an empty array if no tests are provided
-    dd($list_of_tests)
-;        // You could add validation or other logic here if needed.
-    
-        // Return the 'cart' view with the list_of_tests data
-        return view('pages.cart', compact('list_of_tests'));
-    }
-    
-    public function addToCart(Request $request)
-    {
-        // $tests = $request->input('tests');
-        // dd($request->all(),$tests);
-        // // Validate the incoming data
-        // $validatedData = $request->validate([
-        //     'tests' => 'required|array',
-        //     'tests.*.test_name' => 'required|string',
-        //     'tests.*.amount' => 'required|numeric',
-        // ]);
+{
+    $list_of_tests = Cart::where('user_id', auth()->id())->get(); // Fetch cart items for the logged-in user
+    return view('pages.cart', compact('list_of_tests'));
+}
+public function addToCart(Request $request)
+{ 
+//    dd($request->all());
 
-        // // Process the tests and amounts (example logic)
-        // foreach ($validatedData['tests'] as $test) {
-        //     // You can save the test data to the cart or perform any other logic
-        //     // For instance, storing the test in a session or database
-        //     // Example: Cart::add($test['test_name'], $test['amount']);
-        // }
+    $profilecartItems = $request->input('profile_cart', []);
+    $packagecartItems = $request->input('cart', []);
 
-        // Redirect or return response after processing
-        // return redirect()->route('cart.add')->with('success', 'Tests added to cart successfully!');
-        return response()->json(['message' => 'Successfully added to cart'], 200);
+    $testcartItems = $request->input('test_cart', []);
+
+    // dd($cartItems);
+    foreach ($packagecartItems as $item) {
+        Cart::create([
+            'test_name' => $item['test_name'],
+            'amount' => $item['amount'],
+            'user_id' => auth()->id(),
+            'type' => $item['type']
+        ]);
     }
+
+    foreach ($profilecartItems as $item) {
+        Cart::create([
+            'test_name' => $item['test_name'],
+            'amount' => $item['amount'],
+            'user_id' => auth()->id(),
+            'type' => $item['type']
+        ]);
+    }
+
+    foreach ($testcartItems as $item) {
+        Cart::create([
+            'test_name' => $item['test_name'],
+            'amount' => $item['amount'],
+            'user_id' => auth()->id(),
+            'type' => $item['type']
+        ]);
+    }
+
+    return response()->json(['message' => 'Items added to cart successfully!']);
+}
+
+public function removeToCart(Request $request ,$id){
+    Cart::find($id)->delete();
+    return redirect()->route('cart')->with('success','Cart removed successfully');
+}
+
+
+    // public function addToCart(Request $request)
+    // {
+
+    //     // $tests = $request->input('tests');
+    //     // dd($request->all(),$tests);
+    //     // // Validate the incoming data
+    //     // $validatedData = $request->validate([
+    //     //     'tests' => 'required|array',
+    //     //     'tests.*.test_name' => 'required|string',
+    //     //     'tests.*.amount' => 'required|numeric',
+    //     // ]);
+
+    //     // // Process the tests and amounts (example logic)
+    //     // foreach ($validatedData['tests'] as $test) {
+    //     //     // You can save the test data to the cart or perform any other logic
+    //     //     // For instance, storing the test in a session or database
+    //     //     // Example: Cart::add($test['test_name'], $test['amount']);
+    //     // }
+
+    //     // Redirect or return response after processing
+    //     // return redirect()->route('cart.add')->with('success', 'Tests added to cart successfully!');
+    //     return response()->json(['message' => 'Successfully added to cart'], 200);
+    // }
     public function index()
     {
         // Fetch packages
@@ -153,7 +195,7 @@ class HomeController extends Controller
         $profiles = array_filter($tests, function ($test) {
             return stripos($test['test_name'], 'Profile') !== false;
         });
-        return view('pages.index', compact('profiles', 'groupedData' ,'tests'));
+        return view('pages.index', compact('profiles', 'groupedData', 'tests'));
     }
 
     public function membership()

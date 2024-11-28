@@ -115,7 +115,7 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                     <div class="modal-content">
-                        <span class="close-btn" onclick="closeModal()">&times;</span>
+                        <span class="close-btn" onclick="closePackageModal()">&times;</span>
                         <div class="modal-header">
                             <h2 class="modal-title"></h2>
                         </div>
@@ -146,7 +146,7 @@
                         <div class="modal-footer">
                             <p class="modal-price"></p>
                             <p class="price-note">Including taxes & fees</p>
-                            <a href="#" id="add-to-cart-btn">
+                            <a href="#" id="add-to-cart-btn-package">
                                 <button class="btn-book-now-footer">Add to Cart</button>
                             </a>
                         </div>
@@ -155,39 +155,39 @@
 
                 <div class="main-container milestone">
                     @foreach ($groupedData as $data)
-                                    <div class="box">
-                                        <div class="card">
-                                            <div class="badge">50% Off</div>
-                                            <h3>{{ $data['package']['title'] }}</h3>
-                                            @foreach ($data['tests'] as $test)
-                                                <p>Includes <span
-                                                        style="color: orangered; font-size: 1.15em; background-color: white; padding: 2%; border-radius: 100%; border: 0.5px solid #1F2B7B;">{{ count($test['parameters']) }}</span>
-                                                    Parameters</p>
-                                                <div class="price-container">
-                                                    <div class="price">
-                                                        <del>₹{{ number_format($test['test_actual_price'], 0) }}</del>
-                                                        <span
-                                                            class="offer-price">₹{{ number_format($test['test_actual_price'] * 0.5, 0) }}</span>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="buttons">
-                                                     <a onclick="openModal({
-                                                    &quot;package&quot;: {
-                                                        &quot;title&quot;: &quot;{{ $test['test_name'] }}&quot;
-                                                    },
-                                                    &quot;tests&quot;: [
-                                                        {
-                                                            &quot;test_name&quot;: &quot;{{ $test['test_name'] }}&quot;,
-                                                            &quot;test_actual_price&quot;: {{ $test['test_actual_price'] }}
-                                                        }
-                                                    ]
-                                                })" class="more-details" style="color: white;">More Details</a>
-                                                                    </div>
-                                            @endforeach
+                        <div class="box">
+                            <div class="card">
+                                <div class="badge">50% Off</div>
+                                <h3>{{ $data['package']['title'] }}</h3>
+                                @foreach ($data['tests'] as $test)
+                                    <p>Includes <span
+                                            style="color: orangered; font-size: 1.15em; background-color: white; padding: 2%; border-radius: 100%; border: 0.5px solid #1F2B7B;">{{ count($test['parameters']) }}</span>
+                                        Parameters</p>
+                                    <div class="price-container">
+                                        <div class="price">
+                                            <del>₹{{ number_format($test['test_actual_price'], 0) }}</del>
+                                            <span
+                                                class="offer-price">₹{{ number_format($test['test_actual_price'] * 0.5, 0) }}</span>
                                         </div>
                                     </div>
+
+
+                                    <div class="buttons">
+                                            <a onclick="openPackageModal({
+                                        &quot;package&quot;: {
+                                            &quot;title&quot;: &quot;{{ $test['test_name'] }}&quot;
+                                        },
+                                        &quot;tests&quot;: [
+                                            {
+                                                &quot;test_name&quot;: &quot;{{ $test['test_name'] }}&quot;,
+                                                &quot;test_actual_price&quot;: {{ $test['test_actual_price'] }}
+                                            }
+                                        ]
+                                    })" class="more-details" style="color: white;">More Details</a>
+                                                        </div>
+                                @endforeach
+                            </div>
+                        </div>
                     @endforeach
                 </div>
 
@@ -337,6 +337,48 @@
                 <div class="section-title" style="margin-top: 10px;">
                     <h2>Popular Profiles</h>
                 </div>
+
+                <div id="custom-profile-modal" class="mymodal">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                    <div class="modal-content">
+                        <span class="close-btn" onclick="closeProfileModal()">&times;</span>
+                        <div class="modal-header">
+                            <h2 class="modal-profile-title"></h2>
+                        </div>
+                        <div class="modal-body">
+                            <div class="modal-description">
+                                <h3>Laboratory Tests:</h3>
+                                <ul class="test-profile-list"></ul>
+                                <p class="test-overview"></p>
+                            </div>
+                            <div class="modal-image-container">
+                                <img src="" alt="Package Image" class="modal-image">
+                            </div>
+                        </div>
+                        <div class="modal-icons">
+                            <div class="icon-item">
+                                <span class="fa fa-home"></span>
+                                <p>Home Collection<br><span class="available">Available</span></p>
+                            </div>
+                            <div class="icon-item">
+                                <span class="fa fa-motorcycle"></span>
+                                <p>Walk-In<br><span class="available">Available</span></p>
+                            </div>
+                            <div class="icon-item">
+                                <span class="fa fa-users"></span>
+                                <p>Customer Care<br><span class="available">24/7</span></p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <p class="modal-profile-price"></p>
+                            <p class="price-note">Including taxes & fees</p>
+                            <a href="#" id="add-to-cart-btn-profile">
+                                <button class="btn-book-now-footer">Add to Cart</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 <div class="main-container">
                     @forelse ($profiles as $item)
                     <div class="box">
@@ -355,9 +397,18 @@
                                 </div>
                             </div>
                             <div class="buttons">
-                                <a href="#" class="more-details">More Details</a>
-                                <!-- <a href="#" class="add-to-cart"><i class="icofont-cart"></i> Add to Cart</a> -->
-                            </div>
+                                            <a onclick="openProfileModal({
+                                        &quot;package&quot;: {
+                                            &quot;title&quot;: &quot;{{ $item['test_name'] }}&quot;
+                                        },
+                                        &quot;tests&quot;: [
+                                            {
+                                                &quot;test_name&quot;: &quot;{{ $item['test_name'] }}&quot;,
+                                                &quot;test_actual_price&quot;: {{ $item['test_actual_price'] }}
+                                            }
+                                        ]
+                                    })" class="more-details" style="color: white;">More Details</a>
+                                                        </div>
                         </div>
                     </div>
                     @endforeach
@@ -495,6 +546,47 @@
             <div class="section-title" style="margin-top: 10px;">
                 <h2>Popular Tests</h>
             </div>
+            <div id="custom-test-modal" class="mymodal">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                    <div class="modal-content">
+                        <span class="close-btn" onclick="closeTestModal()">&times;</span>
+                        <div class="modal-header">
+                            <h2 class="modal-test-title"></h2>
+                        </div>
+                        <div class="modal-body">
+                            <div class="modal-description">
+                                <h3>Laboratory Tests:</h3>
+                                <ul class="test-test-list"></ul>
+                                <p class="test-overview"></p>
+                            </div>
+                            <div class="modal-image-container">
+                                <img src="" alt="Package Image" class="modal-image">
+                            </div>
+                        </div>
+                        <div class="modal-icons">
+                            <div class="icon-item">
+                                <span class="fa fa-home"></span>
+                                <p>Home Collection<br><span class="available">Available</span></p>
+                            </div>
+                            <div class="icon-item">
+                                <span class="fa fa-motorcycle"></span>
+                                <p>Walk-In<br><span class="available">Available</span></p>
+                            </div>
+                            <div class="icon-item">
+                                <span class="fa fa-users"></span>
+                                <p>Customer Care<br><span class="available">24/7</span></p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <p class="modal-test-price"></p>
+                            <p class="price-note">Including taxes & fees</p>
+                            <a href="#" id="add-to-cart-btn-test">
+                                <button class="btn-book-now-footer">Add to Cart</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             <div class="main-container">
                 @foreach ($tests as  $test)
                 <div class="box">
@@ -510,8 +602,18 @@
                             </div>
                         </div>
                         <div class="buttons">
-                            <a href="#" class="more-details">More Details</a>
-                        </div>
+                                            <a onclick="openTestModal({
+                                        &quot;package&quot;: {
+                                            &quot;title&quot;: &quot;{{ $test['test_name'] }}&quot;
+                                        },
+                                        &quot;tests&quot;: [
+                                            {
+                                                &quot;test_name&quot;: &quot;{{ $test['test_name'] }}&quot;,
+                                                &quot;test_actual_price&quot;: {{ $test['test_actual_price'] }}
+                                            }
+                                        ]
+                                    })" class="more-details" style="color: white;">More Details</a>
+                                                        </div>
                     </div>
                 </div>
                 @endforeach
@@ -976,102 +1078,263 @@
         document.getElementById('custom-package-success-modal').style.display = 'none';
     }
 
-    function openModal(data) {
-        // Ensure tests is converted to an array if it's an object
-        console.log("Data passed to modal:", data);
-        const tests = Array.isArray(data.tests) ? data.tests : [];
-        console.log("Tests array:", tests);
+    // Initialize an empty cart array
+    let cart = [];
 
-        // Update the modal title
-        const modalTitle = document.querySelector('.modal-title');
-        modalTitle.innerText = data.package.title || 'No Title';
+function openPackageModal(data) {
+    console.log("Data passed to modal:", data);
+    const tests = Array.isArray(data.tests) ? data.tests : [];
+    console.log("Tests array:", tests);
 
-        // Update the test list
-        const testList = document.querySelector('.test-list');
-        testList.innerHTML = ''; // Clear previous items
+    // Update the modal title
+    const modalTitle = document.querySelector('.modal-title');
+    modalTitle.innerText = data.package.title || 'No Title';
 
-        // Clear previous modal price
-        const amountElement = document.querySelector('.modal-price');
-        amountElement.innerHTML = ''; // Clear previous amount
+    // Update the test list
+    const testList = document.querySelector('.test-list');
+    testList.innerHTML = ''; // Clear previous items
 
-        let totalDiscountedAmount = 0; // Variable to store total discounted amount
+    // Clear previous modal price
+    const amountElement = document.querySelector('.modal-price');
+    amountElement.innerHTML = ''; // Clear previous amount
 
-        tests.forEach(test => {
-            // Create a list item for each test name
-            const li = document.createElement('li');
-            li.innerText = test.test_name || 'Unnamed Test';
-            testList.appendChild(li);
+    let totalDiscountedAmount = 0; // Variable to store total discounted amount
 
-            // Calculate the discounted price for this test
-            const discountedPrice = Math.round(test.test_actual_price * 0.5); // Apply 50% discount and round to the nearest whole number
-            totalDiscountedAmount += discountedPrice; // Accumulate the discounted amount
-        });
+    tests.forEach(test => {
+        // Create a list item for each test name
+        const li = document.createElement('li');
+        li.innerText = test.test_name || 'Unnamed Test';
+        testList.appendChild(li);
 
-        // Display the total discounted price in the modal
-        amountElement.innerText = `₹ ${totalDiscountedAmount.toLocaleString()}`;
+        // Calculate the discounted price for this test
+        const discountedPrice = Math.round(test.test_actual_price * 0.5); // Apply 50% discount and round
+        totalDiscountedAmount += discountedPrice; // Accumulate the discounted amount
+    });
 
-        // Ensure the button exists and assign the event handler
-        const addToCartBtn = document.getElementById('add-to-cart-btn');
-        if (addToCartBtn) {
-            addToCartBtn.onclick = function () {
-                const form = new FormData();
-                form.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+    // Display the total discounted price in the modal
+    amountElement.innerText = `₹ ${totalDiscountedAmount.toLocaleString()}`;
 
-                // Append the tests data to the form
-                tests.forEach((test, index) => {
-                    form.append(`tests[${index}][test_name]`, test.test_name || '');
-                    form.append(`tests[${index}][amount]`, test.test_actual_price || '');
-                });
+    // Handle Add to Cart button
+    const addToCartBtn = document.getElementById('add-to-cart-btn-package');
+    if (addToCartBtn) {
+        addToCartBtn.onclick = function () {
+            // Add current tests to the cart array
+            cart.push(...tests);
 
-                // Perform AJAX request
-                fetch('/set_cart', {
-                    method: 'POST',
-                    body: form
+            // Log the updated cart
+            console.log("Updated Cart:", cart);
+
+            // Submit cart data to the controller
+            const form = new FormData();
+            form.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+
+           
+
+            const data = {
+            _token: document.querySelector('meta[name="csrf-token"]').content,
+            cart: cart.map(item => ({
+                test_name: item.test_name || '',
+                amount: Math.round(item.test_actual_price * 0.5) || 0,
+                type: 'package'
+            }))
+        };
+
+        fetch('/set_cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+
+            
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        alert('Items added to cart successfully!');
+                        // Redirect to the cart page
+                        window.location.href = '/cart';
+                    } else {
+                        alert('Failed to add items to cart.');
+                    }
                 })
-                    .then(response => response.json())
-                    .then(data => {
-                        // Check if the response is successful
-                        if (data.message) {
-                            // Show success message in the modal
-                            const modalTitle = document.querySelector('.modal-title');
-                            modalTitle.innerText = 'Success'; // You can customize this title
-
-                            const amountElement = document.querySelector('.modal-price');
-                            amountElement.innerText = data.message;  // Display the success message
-                        } else {
-                            // Handle error or no success message case
-                            const modalTitle = document.querySelector('.modal-title');
-                            modalTitle.innerText = 'Error';
-
-                            const amountElement = document.querySelector('.modal-price');
-                            amountElement.innerText = 'An error occurred, please try again.';
-                        }
-
-                        // Open the modal
-                        document.getElementById('custom-package-success-modal').style.display = 'flex';
-                    })
-                    .catch(error => {
-                        console.error('Error adding to cart:', error);
-                        // Handle fetch error
-                        const modalTitle = document.querySelector('.modal-title');
-                        modalTitle.innerText = 'Error';
-
-                        const amountElement = document.querySelector('.modal-price');
-                        amountElement.innerText = 'An error occurred, please try again later.';
-                        document.getElementById('custom-package-modal').style.display = 'flex';
-                    });
-            };
-        }
-
-        // Open the modal
-        document.getElementById('custom-package-modal').style.display = 'flex';
+                .catch(error => {
+                    console.error('Error adding to cart:', error);
+                    alert('An error occurred. Please try again.');
+                });
+        };
     }
 
+    // Open the modal
+    document.getElementById('custom-package-modal').style.display = 'flex';
+}
 
-    function closeModal() {
+
+    function closePackageModal() {
         document.getElementById('custom-package-modal').style.display = 'none';
     }
 
+
+    let profile_cart = [];
+
+// Open Profile Modal
+function openProfileModal(data) {
+    console.log("Data passed to modal:", data);
+
+    // Populate Modal Title
+    const modalTitle = document.querySelector('.modal-profile-title');
+    modalTitle.innerText = data.title || 'No Title';
+
+    // Populate Test List
+    const testList = document.querySelector('.test-profile-list');
+    testList.innerHTML = ''; // Clear previous tests
+    const tests = Array.isArray(data.tests) ? data.tests : [];
+    let totalDiscountedAmount = 0;
+
+    tests.forEach(test => {
+        // Add each test name to the list
+        const li = document.createElement('li');
+        li.innerText = test.test_name || 'Unnamed Test';
+        testList.appendChild(li);
+
+        // Calculate the discounted amount
+        totalDiscountedAmount += Math.round(test.test_actual_price * 0.5);
+    });
+
+    // Populate Total Price
+    const priceElement = document.querySelector('.modal-profile-price');
+    priceElement.innerText = `₹ ${totalDiscountedAmount.toLocaleString()}`;
+
+    // Handle Add to Cart Button
+    const addToCartBtn = document.getElementById('add-to-cart-btn-profile');
+    addToCartBtn.onclick = () => {
+        // Add tests to the profile cart
+        profile_cart.push(...tests);
+        console.log("Updated profile_cart:", profile_cart);
+
+        // Prepare Data for AJAX Request
+        const data = {
+            _token: document.querySelector('meta[name="csrf-token"]').content,
+            profile_cart: profile_cart.map(item => ({
+                test_name: item.test_name || '',
+                amount: Math.round(item.test_actual_price * 0.5) || 0,
+                type: 'profile'
+            }))
+        };
+console.log(data)
+        // Send Data to the Controller
+        fetch('/set_cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.message) {
+                alert('Items added to cart successfully!');
+                window.location.href = '/cart'; // Redirect to Cart Page
+            } else {
+                alert('Failed to add items to cart.');
+            }
+        })
+        .catch(error => {
+            console.error('Error adding to cart:', error);
+            alert('An error occurred. Please try again.');
+        });
+    };
+
+    // Display the Modal
+    document.getElementById('custom-profile-modal').style.display = 'flex';
+}
+
+
+
+    function closeProfileModal() {
+        document.getElementById('custom-profile-modal').style.display = 'none';
+    }
+
+
+    let test_cart = [];
+
+// Open Profile Modal
+function openTestModal(data) {
+    console.log("Data passed to modal:", data);
+
+    // Populate Modal Title
+    const modalTitle = document.querySelector('.modal-test-title');
+    modalTitle.innerText = data.package.title || 'No Title';
+
+    // Populate Test List
+    const testList = document.querySelector('.test-test-list');
+    testList.innerHTML = ''; // Clear previous tests
+    const tests = Array.isArray(data.tests) ? data.tests : [];
+    let totalDiscountedAmount = 0;
+
+    tests.forEach(test => {
+        // Add each test name to the list
+        const li = document.createElement('li');
+        li.innerText = test.test_name || 'Unnamed Test';
+        testList.appendChild(li);
+
+        // Calculate the discounted amount
+        totalDiscountedAmount += Math.round(test.test_actual_price * 0.5);
+    });
+
+    // Populate Total Price
+    const priceElement = document.querySelector('.modal-test-price');
+    priceElement.innerText = `₹ ${totalDiscountedAmount.toLocaleString()}`;
+
+    // Handle Add to Cart Button
+    const addToCartBtn = document.getElementById('add-to-cart-btn-test');
+    addToCartBtn.onclick = () => {
+        // Add tests to the test cart
+        test_cart.push(...tests);
+        console.log("Updated test_cart:", test_cart);
+
+        // Prepare Data for AJAX Request
+        const data = {
+            _token: document.querySelector('meta[name="csrf-token"]').content,
+            test_cart: test_cart.map(item => ({
+                test_name: item.test_name || '',
+                amount: Math.round(item.test_actual_price * 0.5) || 0,
+                type: 'test'
+            }))
+        };
+console.log(data)
+        // Send Data to the Controller
+        fetch('/set_cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.message) {
+                alert('Items added to cart successfully!');
+                window.location.href = '/cart'; // Redirect to Cart Page
+            } else {
+                alert('Failed to add items to cart.');
+            }
+        })
+        .catch(error => {
+            console.error('Error adding to cart:', error);
+            alert('An error occurred. Please try again.');
+        });
+    };
+
+    // Display the Modal
+    document.getElementById('custom-test-modal').style.display = 'flex';
+}
+
+
+
+    function closeTestModal() {
+        document.getElementById('custom-test-modal').style.display = 'none';
+    }
 
 </script>
 

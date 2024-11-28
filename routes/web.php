@@ -47,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('/cart', [HomeController::class, 'cart'])->name('cart');
     Route::get('/cart', [HomeController::class, 'cart'])->name('cart');
     Route::post('/set_cart', [HomeController::class, 'addToCart'])->name('cart.add');
+    Route::delete('/delete_cart/{id}', [HomeController::class, 'removeToCart'])->name('cart.delete_cart');
 
     Route::get('/diagnosticsolutions', [HomeController::class, 'diagnosticsolutions'])->name('diagnosticsolutions');
     Route::get('/leadershipteam', [HomeController::class, 'leadershipteam'])->name('leadershipteam');
