@@ -49,6 +49,24 @@
 		}
 		</script>
 
+
+        <link rel="icon" href="img/favicon.ico">
+
+<link href="https://cdn.jsdelivr.net/npm/pagedone@1.2.2/src/css/pagedone.css " rel="stylesheet"/>
+
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+
+<!-- Google Fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+	rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+
+
+
     <!-- Favicon -->
     <link rel="icon" href="img/favicon.ico">
 
@@ -83,6 +101,9 @@
     <link rel="stylesheet" href="{{asset('lab/css/normalize.css')}}">
     <link rel="stylesheet" href="{{asset('lab/style.css')}}">
     <link rel="stylesheet" href="{{asset('lab/css/responsive.css')}}">
+
+    
+    
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- <script>
