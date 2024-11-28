@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Redirect;
 
 
 class HomeController extends Controller
@@ -135,6 +136,93 @@ public function removeToCart(Request $request ,$id){
     return redirect()->route('cart')->with('success','Cart removed successfully');
 }
 
+
+public function initiatePayment(Request $request)
+{
+    // Assuming $subtotal is the total amount from the cart
+    $subtotal = $request->input('subtotal') * 100; // Convert to paise (multiply by 100)
+    $userId = auth()->id();
+    $orderId = uniqid('order_');  // Generate a unique order ID
+
+    // Set up PayU parameters
+    $payuData = [
+        'key' => env('PAYU_MERCHANT_KEY'),
+        'txnid' => $orderId,
+        'amount' => $subtotal,
+        'productinfo' => 'Test Order',  // You can include cart items info here
+        'firstname' => auth()->user()->name,
+        'email' => auth()->user()->email,
+        'phone' => auth()->user()->phone_number,
+        'surl' => route('payu.callback'),  // Success URL
+        'furl' => route('payu.callback'),  // Failure URL
+        'hash' => $this->generatePayUHash($orderId, $subtotal, ['name' => auth()->user()->name, 'email' => auth()->user()->email]),
+        'order_id' => $orderId,  // Add order_id here
+        'user_email' => auth()->user()->email,
+        'product_info' => 'Sample Product',
+        'customer_name' => auth()->user()->name,
+        'address' => auth()->user()->address,
+    ];
+
+    // Pass data to the payment view
+    return view('pages.payment', compact('payuData'));
+}
+
+
+
+// Handle the callback response from PayU
+// Handle the callback response from PayU
+public function handleCallback(Request $request)
+{
+    // Handle response from PayU after payment (success or failure)
+    $status = $request->input('status');
+    $txnid = $request->input('txnid');
+    $hash = $request->input('hash');
+
+    // Verify payment status here and update your order in DB
+    // Compare received hash with the hash you calculate server-side
+
+    if ($status === 'success') {
+        // Payment successful, update order status and other actions
+        // Example: Order::where('txnid', $txnid)->update(['status' => 'paid']);
+    }
+
+    return redirect()->route('cart')->with('status', 'Payment ' . $status);
+}
+
+public function generatePayUHash($orderId, $amount, $userDetails)
+{
+    // Step 1: Prepare the required parameters
+    $key = env('PAYU_MERCHANT_KEY');  // Merchant Key
+    $salt = env('PAYU_SALT_KEY');     // Salt key from PayU account
+
+    $txnid = $orderId;                 // Unique transaction ID
+    $amount = $amount;                 // Amount to be paid (in paise)
+    $productinfo = 'Sample Product';   // Product information (you can replace it with actual product details)
+    $firstname = $userDetails['name']; // User first name
+    $email = $userDetails['email'];    // User email
+
+    // User Defined Fields (leave empty if not used)
+    $udf1 = ''; 
+    $udf2 = ''; 
+    $udf3 = ''; 
+    $udf4 = ''; 
+    $udf5 = '';
+
+    // Step 2: Create the string to hash
+    // Ensure that the string is correctly formatted with all parameters
+    $hash_string = $key.'|'.$txnid.'|'.$amount.'|'.$productinfo.'|'.$firstname.'|'.$email.'|'.$udf1.'|'.$udf2.'|'.$udf3.'|'.$udf4.'|'.$udf5.'|||||||'.$salt;
+
+    // Debug: Log the hash string before hashing
+    \Log::info('PayU Hash String: ' . $hash_string);
+
+    // Step 3: Generate the SHA512 hash
+    $generated_hash = strtolower(hash('sha512', $hash_string));
+
+    // Debug: Log the generated hash
+    \Log::info('Generated PayU Hash: ' . $generated_hash);
+
+    return $generated_hash;
+}
 
     // public function addToCart(Request $request)
     // {

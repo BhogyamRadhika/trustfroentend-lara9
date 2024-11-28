@@ -48,6 +48,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/cart', [HomeController::class, 'cart'])->name('cart');
     Route::post('/set_cart', [HomeController::class, 'addToCart'])->name('cart.add');
     Route::delete('/delete_cart/{id}', [HomeController::class, 'removeToCart'])->name('cart.delete_cart');
+// Route to initiate PayU payment
+Route::post('payu/payment', [HomeController::class, 'initiatePayment'])->name('payu.payment');
+
+// Route to handle PayU callback response
+Route::post('payu/callback', [HomeController::class, 'handleCallback'])->name('payu.callback');
+
 
     Route::get('/diagnosticsolutions', [HomeController::class, 'diagnosticsolutions'])->name('diagnosticsolutions');
     Route::get('/leadershipteam', [HomeController::class, 'leadershipteam'])->name('leadershipteam');

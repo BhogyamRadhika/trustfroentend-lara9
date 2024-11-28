@@ -316,7 +316,11 @@
                 <span>Total</span>
                 <span id="total">₹{{ number_format($subtotal, 0) }}</span>
             </div>
-            <button class="pay-btn">Proceed to Pay</button>
+            <form action="{{ route('payu.payment') }}" method="POST">
+                @csrf
+                <input type="hidden" name="subtotal" value="{{ $subtotal }}">
+                <button type="submit" class="pay-btn">Proceed to Pay</button>
+            </form>
         </div>
     </div>
 </div>
