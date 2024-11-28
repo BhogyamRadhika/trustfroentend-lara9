@@ -288,6 +288,7 @@
             @php $subtotal = 0; @endphp
             @foreach ($list_of_tests as $test)
                 <div class="cart-item">
+                <div class="test-name">{{ $test->type }}</div>
                     <div class="test-name">{{ $test->test_name }}</div>
                     <div class="test-price">₹{{ number_format($test->amount, 0) }}</div>
                     @php $subtotal += $test->amount; @endphp

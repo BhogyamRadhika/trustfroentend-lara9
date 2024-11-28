@@ -1135,7 +1135,7 @@ function openPackageModal(data) {
             cart: cart.map(item => ({
                 test_name: item.test_name || '',
                 amount: Math.round(item.test_actual_price * 0.5) || 0,
-                type: 'package'
+                type: 'Package'
             }))
         };
 
@@ -1218,7 +1218,7 @@ function openProfileModal(data) {
             profile_cart: profile_cart.map(item => ({
                 test_name: item.test_name || '',
                 amount: Math.round(item.test_actual_price * 0.5) || 0,
-                type: 'profile'
+                type: 'Profile'
             }))
         };
 console.log(data)
@@ -1299,7 +1299,7 @@ function openTestModal(data) {
             test_cart: test_cart.map(item => ({
                 test_name: item.test_name || '',
                 amount: Math.round(item.test_actual_price * 0.5) || 0,
-                type: 'test'
+                type: 'Test'
             }))
         };
 console.log(data)
