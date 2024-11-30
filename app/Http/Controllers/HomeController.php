@@ -87,10 +87,10 @@ class HomeController extends Controller
         return view('pages.biochemistry');
     }
     public function cart(Request $request)
-{
-    $list_of_tests = Cart::where('user_id', auth()->id())->get(); // Fetch cart items for the logged-in user
-    return view('pages.cart', compact('list_of_tests'));
-}
+    {
+        $list_of_tests = Cart::where('user_id', auth()->id())->get(); // Fetch cart items for the logged-in user
+        return view('pages.cart', compact('list_of_tests'));
+    }
 public function addToCart(Request $request)
 { 
 //    dd($request->all());
