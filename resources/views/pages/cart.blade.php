@@ -262,6 +262,20 @@
     }
 </style>
 @section('content')
+
+
+@if(session('success_message'))
+    <div class="alert alert-success">
+        {{ session('success_message') }}
+    </div>
+@elseif(session('error_message'))
+    <div class="alert alert-danger">
+        {{ session('error_message') }}
+    </div>
+@endif
+
+
+
 <a href="https://wa.me/+919014638633?text=Hello%20I%20want%20to%20book%20a%20home%20collection%20service... 🔬😊"
     class="whatsapp-float" target="_blank">
     <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp" />
@@ -316,7 +330,7 @@
                 <span>Total</span>
                 <span id="total">₹{{ number_format($subtotal, 0) }}</span>
             </div>
-            <form action="{{ route('payu.payment') }}" method="POST">
+            <form action="{{ route('payu.payments') }}" method="POST">
                 @csrf
                 <input type="hidden" name="subtotal" value="{{ $subtotal }}">
                 <button type="submit" class="pay-btn">Proceed to Pay</button>

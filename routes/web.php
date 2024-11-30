@@ -32,7 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/index', [HomeController::class, 'index'])->name('index');
     Route::get('/membership', [HomeController::class, 'membership'])->name('membership');
     Route::get('/partnership', [HomeController::class, 'partnership'])->name('partnership');
-    
+
     Route::get('/about', [HomeController::class, 'about'])->name('aboutus');
     Route::get('/ourDoctors', [HomeController::class, 'ourDoctors'])->name('ourDoctors');
     Route::get('/blog-single', [HomeController::class, 'blogsingle'])->name('blog');
@@ -48,11 +48,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/cart', [HomeController::class, 'cart'])->name('cart');
     Route::post('/set_cart', [HomeController::class, 'addToCart'])->name('cart.add');
     Route::delete('/delete_cart/{id}', [HomeController::class, 'removeToCart'])->name('cart.delete_cart');
-// Route to initiate PayU payment
-Route::post('payu/payment', [HomeController::class, 'initiatePayment'])->name('payu.payment');
+    // Route to initiate PayU payment
+    Route::post('payu/payment', [HomeController::class, 'initiatePayment'])->name('payu.payment');
 
-// Route to handle PayU callback response
-Route::post('payu/callback', [HomeController::class, 'handleCallback'])->name('payu.callback');
+    Route::get('pay-u-money-view', [HomeController::class, 'payUMoneyView'])->name('pay.u.post');
+    Route::post('pay-u-money-view', [HomeController::class, 'payUMoneyView'])->name('payu.payments');
+Route::get('payu/success', [HomeController::class, 'payuSuccess'])->name('pay.u.response');
+Route::get('payu/failure', [HomeController::class, 'payuFailure'])->name('pay.u.cancel');
+
+    // Route to handle PayU callback response
+    Route::post('payu/callback', [HomeController::class, 'handleCallback'])->name('payu.callback');
 
 
     Route::get('/diagnosticsolutions', [HomeController::class, 'diagnosticsolutions'])->name('diagnosticsolutions');
