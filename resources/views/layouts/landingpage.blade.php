@@ -21,49 +21,49 @@
     <link rel="canonical" href="https://www.mytrustlab.com">
 
     <script type="application/ld+json">
-		{
-		  "@context": "https://schema.org",
-		  "@type": "MedicalBusiness",
-		  "name": "TRUSTlab Diagnostics",
-		  "url": "https://www.mytrustlab.com",
-		  "logo": "https://www.mytrustlab.com/img/favicon.ico",
-		  "contactPoint": {
-			"@type": "ContactPoint",
-			"telephone": "+91-7440075400",
-			"contactType": "Customer Service"
-		  },
-		  "description": "TRUSTlab Diagnostics offers a wide range of diagnostic services including blood tests, pathology, and home sample collections PAN India.",
-		  "address": {
-			"@type": "PostalAddress",
-			"streetAddress": "H.No. 31, Street No. 5, Prakash Nagar, Begumpet, Hyderabad, Telangana - 500016",
-			"addressLocality": "Begumpet",
-			"addressRegion": "Hyderabad",
-			"postalCode": "500016",
-			"addressCountry": "IN"
-		  },
-		  "sameAs": [
-			"https://www.facebook.com/TRUSTlabDiagnostics",
-			"https://www.instagram.com/trustlab_official",
-			"https://www.linkedin.com/company/trustlabdiagnostics"
-		  ]
-		}
-		</script>
+        {
+            "@context": "https://schema.org",
+            "@type": "MedicalBusiness",
+            "name": "TRUSTlab Diagnostics",
+            "url": "https://www.mytrustlab.com",
+            "logo": "https://www.mytrustlab.com/img/favicon.ico",
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+91-7440075400",
+                "contactType": "Customer Service"
+            },
+            "description": "TRUSTlab Diagnostics offers a wide range of diagnostic services including blood tests, pathology, and home sample collections PAN India.",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "H.No. 31, Street No. 5, Prakash Nagar, Begumpet, Hyderabad, Telangana - 500016",
+                "addressLocality": "Begumpet",
+                "addressRegion": "Hyderabad",
+                "postalCode": "500016",
+                "addressCountry": "IN"
+            },
+            "sameAs": [
+                "https://www.facebook.com/TRUSTlabDiagnostics",
+                "https://www.instagram.com/trustlab_official",
+                "https://www.linkedin.com/company/trustlabdiagnostics"
+            ]
+        }
+    </script>
 
 
-        <link rel="icon" href="img/favicon.ico">
+    <link rel="icon" href="img/favicon.ico">
 
-<link href="https://cdn.jsdelivr.net/npm/pagedone@1.2.2/src/css/pagedone.css " rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/pagedone@1.2.2/src/css/pagedone.css " rel="stylesheet" />
 
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
 
-<!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
-	rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
 
 
 
@@ -102,8 +102,8 @@
     <link rel="stylesheet" href="{{asset('lab/style.css')}}">
     <link rel="stylesheet" href="{{asset('lab/css/responsive.css')}}">
 
-    
-    
+
+
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- <script>
@@ -270,6 +270,18 @@
             margin-bottom: 20px;
             background-color: white;
             /* Maintain aspect ratio */
+        }
+
+
+        .header .nav li a {
+            color: #2C2D3F;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: capitalize;
+            padding: 25px 7px;
+            position: relative;
+            display: inline-block;
+            position: relative;
         }
 
         @media (min-width: 768px) {
@@ -451,10 +463,10 @@
                             </div>
                             <div class="col-lg-7 col-md-9 col-12">
                                 <!-- Main Menu -->
-                                 @php
-                                 
-                                 $carts =  App\Models\Cart::where('user_id',Auth::id())->get()->count();
-                                 @endphp
+                                @php
+
+                                $carts = App\Models\Cart::where('user_id',Auth::id())->get()->count();
+                                @endphp
                                 <div class="main-menu">
                                     <nav class="navigation">
                                         <ul class="nav menu">
@@ -481,9 +493,14 @@
                                             </li>
 
                                             <li class="{{ Request::is('cart') ? 'active' : '' }}">
-                                                <a href="{{ route('cart') }}"> <img src="{{asset('lab/img/cart.png')}}" alt="eDOS" width="20px" /><span
-                                                style="color: orangered; font-size: 1.15em; background-color: white; padding: 2%; border-radius: 100%; border: 0.5px solid #1F2B7B;">{{ $carts}}</span> </a>
-                                            </li>
+    <a href="{{ route('cart') }}" style="position: relative; padding: 25px 7px; display: inline-block;">
+        <img src="{{asset('lab/img/cart.png')}}" alt="eDOS" width="20px" />
+        <span style="color: orangered; font-size: 1.15em; background-color: white; padding: 1%; border-radius: 100%; border: 0.5px solid #1F2B7B; position: absolute; top: -0px; right: -5px; min-width: 20px; text-align: center;">
+            {{ $carts }}
+        </span>
+    </a>
+</li>
+
                                         </ul>
                                     </nav>
 
@@ -795,7 +812,6 @@
             checkVisibility();
             window.addEventListener('scroll', checkVisibility);
         });
-
     </script>
 
     <script>
@@ -804,7 +820,7 @@
 
         // Add click event to each tab link
         tabs.forEach(tab => {
-            tab.addEventListener('click', function () {
+            tab.addEventListener('click', function() {
                 // Remove active class from all tabs
                 tabs.forEach(item => item.classList.remove('active'));
 
@@ -822,7 +838,6 @@
                 document.getElementById(tabId).classList.add('active');
             });
         });
-
     </script>
 
     <script>
@@ -852,7 +867,6 @@
 
 
     <script>
-
         function toggleDrawer() {
             const drawer = document.getElementById("drawer");
             drawer.classList.toggle("open");
@@ -874,8 +888,6 @@
         function navigateTo(url) {
             window.location.href = url;
         }
-
-
     </script>
 
 

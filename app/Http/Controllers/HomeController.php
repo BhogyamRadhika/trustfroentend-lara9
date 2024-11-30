@@ -93,11 +93,11 @@ class HomeController extends Controller
         $list_of_tests = Cart::where('user_id', auth()->id())->get(); // Fetch cart items for the logged-in user
         return view('pages.cart', compact('list_of_tests'));
     }
-    public function addToCart(Request $request)
-    {
-        //    dd($request->all());
 
-        $profilecartItems = $request->input('profile_cart', []);
+public function addToCart(Request $request)
+{ 
+//    dd($request->all());
+     $profilecartItems = $request->input('profile_cart', []);
         $packagecartItems = $request->input('cart', []);
 
         $testcartItems = $request->input('test_cart', []);
