@@ -360,7 +360,7 @@ class HomeController extends Controller
 
         // Action URL
         $action = $PAYU_BASE_URL . '/_payment';
-        $this->clearCart($user);
+        // $this->clearCart($user);
         // Send WhatsApp Message (you can use your own WhatsApp API)
         $message = "Hello $name, your payment of ₹$amount was successful. Transaction ID: $txnid. Thank you for your purchase!";
         $this->sendWhatsAppMessage($user, $message);
@@ -383,29 +383,20 @@ class HomeController extends Controller
         $whatsAppApiUrl = 'https://backend.api-wa.co/campaign/suvega-digital-media-pvt-ltd/api/v2'; // Your API URL for WhatsApp messaging
         $apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OGZiZTZhNjA3OWY1NDcwOTkxODNkYiIsIm5hbWUiOiJUUlVTVGxhYiIsImFwcE5hbWUiOiJBaVNlbnN5IiwiY2xpZW50SWQiOiI2NjhmYmU2OTYwNzlmNTQ3MDk5MTgzY2IiLCJhY3RpdmVQbGFuIjoiTk9ORSIsImlhdCI6MTcyMDY5NjQyNn0.JG7zHx6Syfg2RoIPb5iRKOulrNk7l6kL-Wyz503blVw';  // Replace with your actual WhatsApp API key
         $senderPhone = '9281433936';  // Replace with your WhatsApp sender phone number
-        $recipientPhone = '+' . $user->country_code . $user->phone;  // Assuming the user object contains 'country_code' and 'phone'
-        $campaignName = 'Trust Labs'; // Campaign name
+        // $recipientPhone = '+' . $user->country_code . $user->phone;  // Assuming the user object contains 'country_code' and 'phone'
+        $campaignName = 'Elevate'; // Campaign name
         $userName = $user->name; // Sender's name
         $source = 'Test'; // Source of the lead
         $mediaUrl = 'https://your-media-url.com'; // URL to be sent in the WhatsApp message
         $filename = 'link.pdf'; // Optional: Provide a filename for the media
     
-        $recipientPhone = $user->phone;  // Get phone number from user object
-
-// Ensure phone number is in the correct international format
-$recipientPhoneFormatted = '+' . preg_replace('/[^0-9]/', '', $recipientPhone);
-
-// Check the formatted phone number before sending
-if (strlen($recipientPhoneFormatted) < 10) {
-    Log::error('Invalid phone number format: ' . $recipientPhone);
-    return;
-}
+       
 
 // Proceed with the message sending
 $data = [
     'apiKey' => $apiKey,
     'campaignName' => $campaignName,
-    'destination' => $recipientPhoneFormatted, // Use the properly formatted phone number
+    'destination' => '+919281433936', // Use the properly formatted phone number
     'userName' => $userName,
     'source' => $source,
     'media' => [
