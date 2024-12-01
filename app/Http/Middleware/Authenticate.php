@@ -15,7 +15,10 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
+            \Log::info('Unauthenticated access attempt. Redirecting to login.');
             return route('login');
         }
+
+
     }
 }

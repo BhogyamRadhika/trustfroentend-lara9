@@ -21,8 +21,8 @@
 
                 <!-- Payment Details List -->
                 <ul class="list-unstyled mb-4">
-                    <li><strong>Merchant Key:</strong> <span class="text-danger">{{ $MERCHANT_KEY }}</span></li>
-                    <li><strong>Amount:</strong> <span class="text-danger">₹{{ $amount }}</span></li>
+                <li><strong>Merchant Key:</strong> <span class="text-danger">{{ $MERCHANT_KEY }}</span></li>
+                <li><strong>Amount:</strong> <span class="text-danger">₹{{ $amount }}</span></li>
                     <li><strong>User Email:</strong> <span class="text-muted">{{ $email}}</span></li>
                     <li><strong>Customer Name:</strong> <span class="text-muted">{{ $name }}</span>
                     </li>
@@ -41,10 +41,11 @@
                     <input type="hidden" name="service_provider" value="payu_paisa">
                     <input type="hidden" name="hash" value="{{ $hash }}">
                     <!-- Proceed to Pay Button -->
-                    <button type="submit"
-                        class="btn btn-lg btn-success text-uppercase font-weight-bold mt-3 transition-all">Proceed to
-                        Pay</button>
+                    <button type="submit" class="btn btn-lg btn-success text-uppercase font-weight-bold mt-3 transition-all">
+                        Proceed to Pay
+                    </button>
                 </form>
+
             </div>
         </div>
     </div>

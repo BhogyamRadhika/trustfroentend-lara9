@@ -164,7 +164,7 @@
 						<div class="section-title">
 							<h2 style="line-height: 120%; text-align: center;">Our role is to expedite that wish - by
 								delivering accurate diagnostic insights swiftly.</h2>
-							<img src="img/section-img.png" alt="#">
+							<img src="{{asset('lab/img/section-img.png')}}" alt="#">
 							<!-- <p>Empowering medical professionals with invaluable insights to enhance patient care and
 								drive better health outcomes.</p> -->
 						</div>

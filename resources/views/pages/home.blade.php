@@ -9,7 +9,7 @@
 
         <div class="floating-scanner">
             <div class="scanner-content">
-                <img src="img/eDOSwithouttext.png" alt="Download TRUSTlab App" class="qr-code">
+                <img src="{{asset('lab/img/eDOSwithouttext.png')}}" alt="Download TRUSTlab App" class="qr-code">
                 <p>Download TRUSTlab App</p>
             </div>
         </div>
@@ -1142,7 +1142,7 @@
                         <div class="section-title">
                             <h2>We're Always Here to Answer You. Call us Now - <span class="typewriter"
                                     id="typewriter-text" style="color:#009247;"></span></h2>
-                            <img src="img/section-img.png" alt="#">
+                            <img src="{{asset('lab/img/section-img.png')}}" alt="#">
                             <p>Our dedicated team is available around the clock to provide you with all the information
                                 and support you need.</p>
                         </div>

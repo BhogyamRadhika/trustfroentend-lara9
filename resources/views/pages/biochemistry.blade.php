@@ -124,7 +124,7 @@
                 <div class="section-title">
                     <h2>We're Always Here to Answer You. Call us Now - <span style="color:#009247;">74 400 75 400</span>
                     </h2>
-                    <img src="img/section-img.png" alt="#">
+                    <img src="{{asset('lab/img/section-img.png')}}" alt="#">
                     <p>Our dedicated team is available around the clock to provide you with all the information and
                         support you need.</p>
                 </div>

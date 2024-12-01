@@ -1075,7 +1075,7 @@
     //     function openModal() {
     //   document.getElementById('custom-modal').style.display = 'flex';
     // }
-
+    const APP_URL = "{{ url('/') }}";
     function closeModal1() {
         document.getElementById('custom-package-success-modal').style.display = 'none';
     }
@@ -1141,7 +1141,7 @@
                     }))
                 };
 
-                fetch('/set_cart', {
+                fetch(`${APP_URL}/set_cart`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -1156,7 +1156,7 @@
                             alert('Items added to cart successfully!');
                             // Redirect to the cart page
                             // window.location.href = '/cart';
-                            window.location.href = '/index';
+                            window.location.href = `${APP_URL}/cart`;
                         } else {
                             alert('Failed to add items to cart.');
                         }
@@ -1226,7 +1226,7 @@
             };
             console.log(data)
             // Send Data to the Controller
-            fetch('/set_cart', {
+            fetch(`${APP_URL}/set_cart`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1238,7 +1238,7 @@
                     if (result.message) {
                         alert('Items added to cart successfully!');
                         // window.location.href = '/cart'; // Redirect to Cart Page
-                        window.location.href = '/index';
+                        window.location.href = `${APP_URL}/cart`;
                     } else {
                         alert('Failed to add items to cart.');
                     }
@@ -1308,7 +1308,7 @@
             };
             console.log(data)
             // Send Data to the Controller
-            fetch('/set_cart', {
+            fetch(`${APP_URL}/set_cart`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1320,7 +1320,7 @@
                     if (result.message) {
                         alert('Items added to cart successfully!');
                         // window.location.href = '/cart'; // Redirect to Cart Page
-                        window.location.href = '/index';
+                        window.location.href = `${APP_URL}/cart`;
                     } else {
                         alert('Failed to add items to cart.');
                     }

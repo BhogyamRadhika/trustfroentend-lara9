@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redirect;
@@ -94,10 +95,10 @@ class HomeController extends Controller
         return view('pages.cart', compact('list_of_tests'));
     }
 
-public function addToCart(Request $request)
-{ 
-//    dd($request->all());
-     $profilecartItems = $request->input('profile_cart', []);
+    public function addToCart(Request $request)
+    {
+        //    dd($request->all());
+        $profilecartItems = $request->input('profile_cart', []);
         $packagecartItems = $request->input('cart', []);
 
         $testcartItems = $request->input('test_cart', []);
@@ -296,17 +297,32 @@ public function addToCart(Request $request)
         $SALT = "SXlkFThrICzCBrK7hBH5UBTR3BWpAWTH"; // Test Salt
         $PAYU_BASE_URL = "https://test.payu.in"; // Test Environment
 
+        $user = \Auth::user();
+        if (!$user) {
+            return redirect()->back()->withErrors(['error' => 'User not authenticated.']);
+        }
+    
         // User details
-        $name = 'Haresh Chauhan';
-        $email = 'example@gmail.com';
-        $amount = number_format((float) $request->input('subtotal', 1000), 2, '.', ''); // Subtotal from form or default
-
+        $name = $user->name;
+        $email = $user->email;
+        $phone = $user->phone;
+        $amount = number_format((float) $request->input('subtotal', 1000), 2, '.', ''); // Subtotal or default
+    
         // Callback URLs
-        $successURL = route('pay.u.response'); // Route for success
-        $failURL = route('pay.u.cancel'); // Route for failure
-
+        $successURL = route('pay.u.response');
+        $failURL = route('pay.u.cancel');
+    
         // Generate Unique Transaction ID
         $txnid = substr(hash('sha256', mt_rand() . microtime()), 0, 20);
+    
+        // Create Payment Record
+        $payment = Payment::create([
+            'txnid' => $txnid,
+            'user_id' => $user->id,
+            'amount' => $amount,
+            'status' => 'pending', // Default status
+        ]);
+
 
         // Payment Parameters
         $posted = [
@@ -355,7 +371,7 @@ public function addToCart(Request $request)
     {
         $apiUrl = 'https://api.subkuch.in/sendMessage';
         $apiKey = 'YOUR_API_KEY'; // Replace with your API key
-
+ // $apiKey = 'https://wa.me/+919281433936';
         // Prepare the POST data
         $data = [
             'phone' => $phone,
@@ -425,7 +441,7 @@ public function addToCart(Request $request)
     {
         // Log the incoming response for debugging purposes
         Log::info('PayU Response:', $request->all());
-    
+
         // Extract response data from PayU
         $status = $request->get('status');
         $mihpayid = $request->get('mihpayid');
@@ -434,16 +450,16 @@ public function addToCart(Request $request)
         $firstname = $request->get('firstname');
         $email = $request->get('email');
         $token = $request->get('token');
-    
+
         // Check for the payment status
         if ($status == 'success') {
             // Payment was successful, generate WhatsApp URL
             $message = "Hello, $firstname! Your payment of ₹$amount for transaction ID $txnid was successful.";
             $whatsappUrl = "https://wa.me/yourPhoneNumber?text=" . urlencode($message);
-            
+
             // Log the WhatsApp URL for debugging
             Log::info('WhatsApp URL:', $whatsappUrl);
-            
+
             // Redirect to WhatsApp link
             return redirect()->away($whatsappUrl);
         } else {
@@ -452,7 +468,7 @@ public function addToCart(Request $request)
             return redirect()->route('pay.u.cancel');
         }
     }
-  
+
 
     // Function to send WhatsApp message
     // private function sendWhatsAppMessage($phone, $message)
@@ -523,6 +539,11 @@ public function addToCart(Request $request)
 
         // Return to cart page with failure details
         return view('pages.cancel')->with('error_message', 'Payment Cancelled.');
+    }
+    public function paymentDetails()
+    {
+        $payments = Payment::with('user')->where('user_id',\Auth::id())->paginate(5);
+        return view('pages.payment_details',compact('payments'));
     }
 
 

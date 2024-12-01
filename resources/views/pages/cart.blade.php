@@ -283,7 +283,7 @@
 
 <div class="floating-scanner">
     <div class="scanner-content">
-        <img src="img/eDOSwithouttext.png" alt="Download TRUSTlab App" class="qr-code">
+        <img src="{{asset('lab/img/eDOSwithouttext.png')}}" alt="Download TRUSTlab App" class="qr-code">
         <p>Download TRUSTlab App</p>
     </div>
 </div>
