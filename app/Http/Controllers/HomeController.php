@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Payment;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\Mailer\Messenger\SendEmailMessage;
+use GuzzleHttp\Client;
 
 
 
@@ -301,20 +304,20 @@ class HomeController extends Controller
         if (!$user) {
             return redirect()->back()->withErrors(['error' => 'User not authenticated.']);
         }
-    
+
         // User details
         $name = $user->name;
         $email = $user->email;
         $phone = $user->phone;
         $amount = number_format((float) $request->input('subtotal', 1000), 2, '.', ''); // Subtotal or default
-    
+
         // Callback URLs
         $successURL = route('pay.u.response');
         $failURL = route('pay.u.cancel');
-    
+
         // Generate Unique Transaction ID
         $txnid = substr(hash('sha256', mt_rand() . microtime()), 0, 20);
-    
+
         // Create Payment Record
         $payment = Payment::create([
             'txnid' => $txnid,
@@ -357,52 +360,162 @@ class HomeController extends Controller
 
         // Action URL
         $action = $PAYU_BASE_URL . '/_payment';
-
+        $this->clearCart($user);
         // Send WhatsApp Message (you can use your own WhatsApp API)
         $message = "Hello $name, your payment of ₹$amount was successful. Transaction ID: $txnid. Thank you for your purchase!";
-        $this->sendWhatsAppMessage('7702165397', $message);
+        $this->sendWhatsAppMessage($user, $message);
 
         // Return View with Data
         return view('pages.payment', compact('action', 'hash', 'MERCHANT_KEY', 'txnid', 'successURL', 'failURL', 'name', 'email', 'amount'));
     }
 
-    // Send WhatsApp Message using your API
-    public function sendWhatsAppMessage($phone, $message)
+    public function clearCart($user)
     {
-        $apiUrl = 'https://api.subkuch.in/sendMessage';
-        $apiKey = 'YOUR_API_KEY'; // Replace with your API key
- // $apiKey = 'https://wa.me/+919281433936';
-        // Prepare the POST data
-        $data = [
-            'phone' => $phone,
-            'message' => $message,
-            'apikey' => $apiKey,
-        ];
+        // Remove all items from the user's cart
+        Cart::where('user_id', $user->id)->delete();
 
-        // Initialize cURL
-        $ch = curl_init();
-
-        // Set cURL options
-        curl_setopt($ch, CURLOPT_URL, $apiUrl);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-
-        // Execute the request and capture the response
-        $response = curl_exec($ch);
-
-        // Check for errors
-        if (curl_errno($ch)) {
-            // Log or handle the cURL error
-            Log::error('cURL Error: ' . curl_error($ch));
-        } else {
-            // Optionally, log the response
-            Log::info('WhatsApp API Response: ' . $response);
-        }
-
-        // Close the cURL session
-        curl_close($ch);
+        // Optionally, you can log the cart clearance
+        Log::info("Cart cleared for user ID: {$user->id}");
     }
+
+    public function sendWhatsAppMessage($user, $message)
+    {
+        $whatsAppApiUrl = 'https://backend.api-wa.co/campaign/suvega-digital-media-pvt-ltd/api/v2'; // Your API URL for WhatsApp messaging
+        $apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OGZiZTZhNjA3OWY1NDcwOTkxODNkYiIsIm5hbWUiOiJUUlVTVGxhYiIsImFwcE5hbWUiOiJBaVNlbnN5IiwiY2xpZW50SWQiOiI2NjhmYmU2OTYwNzlmNTQ3MDk5MTgzY2IiLCJhY3RpdmVQbGFuIjoiTk9ORSIsImlhdCI6MTcyMDY5NjQyNn0.JG7zHx6Syfg2RoIPb5iRKOulrNk7l6kL-Wyz503blVw';  // Replace with your actual WhatsApp API key
+        $senderPhone = '9281433936';  // Replace with your WhatsApp sender phone number
+        $recipientPhone = '+' . $user->country_code . $user->phone;  // Assuming the user object contains 'country_code' and 'phone'
+        $campaignName = 'Trust Labs'; // Campaign name
+        $userName = $user->name; // Sender's name
+        $source = 'Test'; // Source of the lead
+        $mediaUrl = 'https://your-media-url.com'; // URL to be sent in the WhatsApp message
+        $filename = 'link.pdf'; // Optional: Provide a filename for the media
+    
+        $recipientPhone = $user->phone;  // Get phone number from user object
+
+// Ensure phone number is in the correct international format
+$recipientPhoneFormatted = '+' . preg_replace('/[^0-9]/', '', $recipientPhone);
+
+// Check the formatted phone number before sending
+if (strlen($recipientPhoneFormatted) < 10) {
+    Log::error('Invalid phone number format: ' . $recipientPhone);
+    return;
+}
+
+// Proceed with the message sending
+$data = [
+    'apiKey' => $apiKey,
+    'campaignName' => $campaignName,
+    'destination' => $recipientPhoneFormatted, // Use the properly formatted phone number
+    'userName' => $userName,
+    'source' => $source,
+    'media' => [
+        'url' => $mediaUrl,  // URL to be sent in the WhatsApp message
+        'filename' => 'link.pdf',  // Optional: Provide a filename for the link
+    ],
+    'templateParams' => json_encode([$message]),  // Optional: Use template parameters if required
+    'tags' => ['test-tag'],  // Optional: Tags for your campaign
+    'attributes' => [
+        'attribute_name' => 'value',  // Optional: Attributes for your campaign
+    ],
+];
+
+// Send the message
+$client = new Client();
+try {
+    // Send the POST request to the WhatsApp API
+    $response = $client->request('POST', $whatsAppApiUrl, [
+        'json' => $data,
+    ]);
+    
+    // Log the response for debugging
+    $responseBody = $response->getBody();
+    Log::info('WhatsApp message sent successfully: ' . $responseBody);
+} catch (\Exception $e) {
+    // Log the error if the request fails
+    Log::error('WhatsApp message sending failed: ' . $e->getMessage());
+}
+
+        $client = new Client();
+    
+        try {
+            $client = new Client([
+                'verify' => false,  // Disable SSL verification
+            ]);
+        
+            $response = $client->request('POST', $whatsAppApiUrl, [
+                'json' => $data,
+            ]);
+        
+            Log::info('WhatsApp API Response Code: ' . $response->getStatusCode());
+            Log::info('WhatsApp API Response Body: ' . $response->getBody());
+        
+        } catch (\Exception $e) {
+            Log::error('WhatsApp message sending failed: ' . $e->getMessage());
+        }
+        
+    }
+    
+    // Send WhatsApp Message using your API
+//     public function sendWhatsAppMessage($phone, $message, $link)
+// {
+//     $apiUrl = 'https://backend.api-wa.co/campaign/suvega-digital-media-pvt-ltd/api/v2'; // API URL
+//     $apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OGZiZTZhNjA3OWY1NDcwOTkxODNkYiIsIm5hbWUiOiJUUlVTVGxhYiIsImFwcE5hbWUiOiJBaVNlbnN5IiwiY2xpZW50SWQiOiI2NjhmYmU2OTYwNzlmNTQ3MDk5MTgzY2IiLCJhY3RpdmVQbGFuIjoiTk9ORSIsImlhdCI6MTcyMDY5NjQyNn0.JG7zHx6Syfg2RoIPb5iRKOulrNk7l6kL-Wyz503blVw'; // API key
+//     $campaignName = 'Trust Labs'; // Campaign name
+//     $user = User::find(\Auth::id());
+//     $userName = $user->name; // Sender's name
+//     $source = 'Test'; // Source of the lead
+//     $mediaUrl = $link; // The URL to be sent in the WhatsApp message
+
+    //     // Request body data
+//     $data = [
+//         'apiKey' => $apiKey,
+//         'campaignName' => $campaignName,
+//         'destination' => $phone, // Recipient's phone number
+//         'userName' => $userName,
+//         'source' => $source,
+//         'media' => [
+//             'url' => $mediaUrl, // URL to be sent in the WhatsApp message
+//             'filename' => 'link.pdf', // Optional: Provide a filename for the link
+//         ],
+//         'templateParams' => json_encode([$message]), // Optional: Use template parameters if required
+//         'tags' => ['test-tag'], // Optional: Tags for your campaign
+//         'attributes' => [
+//             'attribute_name' => 'value', // Optional: Attributes for your campaign
+//         ],
+//     ];
+
+    //     // Debugging output to ensure data is correct
+
+
+    //     // Initialize cURL for API request
+//     $ch = curl_init();
+
+    //     // cURL options
+//     curl_setopt($ch, CURLOPT_URL, $apiUrl);
+//     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+//     curl_setopt($ch, CURLOPT_POST, 1);
+//     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+//     curl_setopt($ch, CURLOPT_HTTPHEADER, [
+//         'Content-Type: application/json',
+//         'Authorization: Bearer ' . $apiKey, // Optional: Authorization header if required
+//     ]);
+
+    //     // Execute the cURL request
+//     $response = curl_exec($ch);
+
+    //     // Check for cURL errors
+//     if (curl_errno($ch)) {
+//         Log::error('cURL Error: ' . curl_error($ch));
+//     } else {
+//         Log::info('WhatsApp API Response: ' . $response);
+//     }
+
+    //     // Close the cURL session
+//     curl_close($ch);
+//     // dd($data);
+// }
+
+
 
     // Handle PayU success response
     public function payuSuccess(Request $request)
@@ -542,8 +655,8 @@ class HomeController extends Controller
     }
     public function paymentDetails()
     {
-        $payments = Payment::with('user')->where('user_id',\Auth::id())->paginate(5);
-        return view('pages.payment_details',compact('payments'));
+        $payments = Payment::with('user')->where('user_id', \Auth::id())->paginate(5);
+        return view('pages.payment_details', compact('payments'));
     }
 
 
