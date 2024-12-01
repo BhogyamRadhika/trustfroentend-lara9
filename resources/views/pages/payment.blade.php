@@ -2,12 +2,7 @@
 
 @section('content')
 <div class="container my-5">
-    <div class="text-center mb-3">
-        <h1 class="display-5 text-primary font-weight-bold">PayU Payment</h1>
-        <!-- <p class="lead text-muted">Secure and Easy Online Payment</p> -->
-    </div>
-
-    <h1>PayU Payment</h1>
+   
     @if(session('success_message'))
         <div class="alert alert-success">
             {{ session('success_message') }}
@@ -26,16 +21,11 @@
 
                 <!-- Payment Details List -->
                 <ul class="list-unstyled mb-4">
-                    <li><strong>Merchant Key:</strong> <span class="text-danger">{{ $payuData['key'] }}</span></li>
-                    <li><strong>Amount:</strong> <span class="text-danger">₹{{ $payuData['amount'] / 100 }}</span></li>
-                    <li><strong>Order ID:</strong> <span class="text-muted">{{ $payuData['order_id'] }}</span></li>
-                    <li><strong>User Email:</strong> <span class="text-muted">{{ $payuData['user_email'] }}</span></li>
-                    <li><strong>Product Info:</strong> <span class="text-muted">{{ $payuData['product_info'] }}</span>
+                    <li><strong>Merchant Key:</strong> <span class="text-danger">{{ $MERCHANT_KEY }}</span></li>
+                    <li><strong>Amount:</strong> <span class="text-danger">₹{{ $amount }}</span></li>
+                    <li><strong>User Email:</strong> <span class="text-muted">{{ $email}}</span></li>
+                    <li><strong>Customer Name:</strong> <span class="text-muted">{{ $name }}</span>
                     </li>
-                    <li><strong>Customer Name:</strong> <span class="text-muted">{{ $payuData['customer_name'] }}</span>
-                    </li>
-                    <li><strong>Phone:</strong> <span class="text-muted">{{ $payuData['phone'] }}</span></li>
-                    <li><strong>Address:</strong> <span class="text-muted">{{ $payuData['address'] }}</span></li>
                 </ul>
 
                 <!-- Payment Form -->
