@@ -26,7 +26,7 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 
 // Protected routes - only accessible by authenticated users
-Route::middleware(['web', 'auth'])->group(function () {    // Default redirection for `/`
+Route::middleware(['auth'])->group(function () {    // Default redirection for `/`
     Route::get('/', function () {
         return redirect()->route('index');
     });
@@ -49,23 +49,78 @@ Route::middleware(['web', 'auth'])->group(function () {    // Default redirectio
     Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 
     // Cart routes
-    Route::get('/cart', [HomeController::class, 'cart'])->name('cart');
     Route::post('/set_cart', [HomeController::class, 'addToCart'])->name('cart.add');
     Route::delete('/delete_cart/{id}', [HomeController::class, 'removeToCart'])->name('cart.delete_cart');
 
     // PayU Payment routes
     // Route::post('payu/payment', [HomeController::class, 'initiatePayment'])->name('payu.payments');
-    Route::match(['get', 'post'], 'pay-u-money-view', [HomeController::class, 'payUMoneyView'])->name('payu.payments');
-    Route::get('payu/success', [HomeController::class, 'payuSuccess'])->name('pay.u.response');
-    Route::get('payu/failure', [HomeController::class, 'payuFailure'])->name('pay.u.cancel');
-    Route::post('payu/callback', [HomeController::class, 'handleCallback'])->name('payu.callback');
+    // Route::match(['get', 'post'], 'pay-u-money-view', [HomeController::class, 'payUMoneyView'])->name('payu.payments');
+    // Route::get('payu/success', [HomeController::class, 'payUResponse'])->name('pay.u.response');
+    // Route::get('payu/failure', [HomeController::class, 'payUCancel'])->name('pay.u.cancel');
+    //     Route::post('payu/callback', [HomeController::class, 'handleCallback'])->name('payu.callback');
 
-    // Additional pages
+
+//     Route::get('pay-u-money-view',[HomeController::class,'payUMoneyView'])->name('payumoney.view');
+// Route::post('pay-u-response',[HomeController::class,'payUResponse'])->name('pay.u.response');
+// Route::post('pay-u-cancel',[HomeController::class,'payUCancel'])->name('pay.u.cancel');
+
+// Route::post('/payu/payments', [HomeController::class, 'initiatePayment'])->name('payu.payments');
+
+
+//PAYMENT FORM
+//SUCCESS CALLBACK ROUTE
+//FAILURE CALLBACK ROUTE
+Route::post('payu-failure', [HomeController::class, 'failure'])->name('payu-failure');
+Route::post('contact/update', [HomeController::class, 'submitContact'])->name('contact.update');
+
     Route::get('/diagnosticsolutions', [HomeController::class, 'diagnosticsolutions'])->name('diagnosticsolutions');
     Route::get('/leadershipteam', [HomeController::class, 'leadershipteam'])->name('leadershipteam');
     Route::get('/boardOfAdvisors', [HomeController::class, 'boardOfAdvisors'])->name('boardOfAdvisors');
     Route::get('/boardOfDirectors', [HomeController::class, 'boardOfDirectors'])->name('boardOfDirectors');
     Route::get('/diagnosticexpertise', [HomeController::class, 'diagnosticexpertise'])->name('diagnosticexpertise');
+    Route::get('/edos-search', [HomeController::class, 'edosSearch'])->name('edosSearch');
 
     Route::get('/payment_details', [HomeController::class, 'paymentDetails'])->name('payment_details');
-});
+
+
+    // Route::get('/cart', [HomeController::class, 'cart'])->name('cart'); 
+    Route::get('/cart', [HomeController::class, 'cart'])->name('cart'); 
+
+    Route::post('/payu/redirect', [HomeController::class, 'redirectToPayU'])->name('payu.payment.form');
+   
+    Route::post('/payu/response', [HomeController::class, 'payuResponse'])
+    ->name('payu.response')->withoutMiddleware('auth');
+
+
+    Route::get('/payu/failure', [HomeController::class, 'paymentFailure'])->name('payu.failure');
+
+//membership plans
+Route::post('/membership/pay', [HomeController::class, 'payMembership'])->name('membership.pay');
+Route::post('/membership/payment/response', [HomeController::class, 'membershipPaymentResponse'])->name('membershipPay.response')->withoutMiddleware('auth');
+Route::post('/membership/payment-failure', [HomeController::class, 'membershipPaymentFailure'])->name('membership.payment.failure');
+
+// Route::get('/whats-app/tets/{phone?}', [HomeController::class, 'sendWhatsAppMessagePay2']);
+
+
+
+    });
+
+    // Route::post('/payu/response/{token}', [HomeController::class, 'payuResponse'])
+    // ->name('payu.response')
+    // ->withoutMiddleware('auth');
+
+    Route::get('/payu/success', action: [HomeController::class, 'paymentSuccess'])->name('payu.success')->withoutMiddleware('auth');
+
+
+
+    // Route::post('/payu/response/{token}', [HomeController::class, 'payuResponse'])
+    // ->name('payu.response')
+    // ->withoutMiddleware('auth');
+
+    Route::get('/payu/success', action: [HomeController::class, 'paymentSuccess'])->name('payu.success')->withoutMiddleware('auth');
+
+
+
+
+
+    

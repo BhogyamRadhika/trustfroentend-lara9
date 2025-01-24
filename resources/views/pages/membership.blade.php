@@ -138,6 +138,19 @@
 					<!--Switch End-->
 				</div>
 				<!--Grid-->
+				
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
 				<div class="space-y-8 lg:grid lg:grid-cols-2 sm:gap-6 xl:gap-1 lg:space-y-0 lg:items-center">
 					<!--Pricing Card-->
 
@@ -150,6 +163,8 @@
 						</div>
 						<div class="p-6 xl:py-9 xl:px-12">
 							<!-- <h3 class="font-manrope text-2xl font-bold mb-3">Advanced</h3> -->
+							<form action="{{ route('membership.pay') }}" method="POST">
+							@csrf
 							<div class="flex items-center mb-6">
 								<span class="font-manrope mr-2 text-6xl font-semibold text-indigo-600">₹999/-</span>
 								<!-- <span class="text-xl text-gray-500 ">Joining fee</span> -->
@@ -212,10 +227,16 @@
 									<span>All Widget Access</span>
 								</li>
 							</ul>
-							<a href="javascript:;"
-								class="py-2.5 px-5 bg-indigo-600 shadow-sm rounded-full transition-all duration-500 text-base text-white font-semibold text-center w-fit block mx-auto hover:bg-indigo-700">Purchase
-								Plan</a>
-							<!--List End-->
+							
+                <input type="hidden" name="plan" value="standered">
+                <input type="hidden" name="amount" value="999">
+                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                <input type="hidden" name="user_email" value="{{ auth()->user()->email }}">
+				<button type="submit" 
+            class="py-2.5 px-5 bg-indigo-600 shadow-sm rounded-full transition-all duration-500 text-base text-white font-semibold text-center w-fit block mx-auto hover:bg-indigo-700">
+        Purchase Plan
+    </button>
+							</form>
 						</div>
 					</div>
 					<!--Pricing Card-->
@@ -227,6 +248,8 @@
 						</div>
 						<div class="p-6 xl:py-9 xl:px-12">
 							<!-- <h3 class="font-manrope text-2xl font-bold mb-3">Advanced</h3> -->
+							<form action="{{ route('membership.pay') }}" method="POST">
+							@csrf
 							<div class="flex items-center mb-6">
 								<span class="font-manrope mr-2 text-6xl font-semibold text-indigo-600">₹1999/-</span>
 								<!-- <span class="text-xl text-gray-500 ">/ month</span> -->
@@ -289,10 +312,15 @@
 									<span>All Widget Access</span>
 								</li>
 							</ul>
-							<a href="javascript:;"
-								class="py-2.5 px-5 bg-indigo-600 shadow-sm rounded-full transition-all duration-500 text-base text-white font-semibold text-center w-fit block mx-auto hover:bg-indigo-700">Purchase
-								Plan</a>
-							<!--List End-->
+							<input type="hidden" name="plan" value="platinum">
+                <input type="hidden" name="amount" value="1999">
+                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                <input type="hidden" name="user_email" value="{{ auth()->user()->email }}">
+				<button type="submit" 
+            class="py-2.5 px-5 bg-indigo-600 shadow-sm rounded-full transition-all duration-500 text-base text-white font-semibold text-center w-fit block mx-auto hover:bg-indigo-700">
+        Purchase Plan
+    </button>
+							</form>
 						</div>
 					</div>
 					<!--Grid End-->
@@ -464,7 +492,8 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-6 col-md-12 col-12">
-						<form class="form" action="#">
+					<form class="form" action="{{route('contact.update')}}" method="POST">
+                    @csrf
 							<div class="row">
 								<div class="col-lg-6 col-md-6 col-12">
 									<div class="form-group">
@@ -513,3 +542,14 @@
 
 
 @endsection
+
+@if(session('success'))
+<script>
+    alert('{{ session('success') }}');
+</script>
+@endif
+@if(session('error'))
+<script>
+    alert('{{ session('error') }}');
+</script>
+@endif

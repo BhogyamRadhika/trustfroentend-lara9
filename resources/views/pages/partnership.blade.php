@@ -158,7 +158,8 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-12">
-                        <form class="form" action="#">
+                    <form class="form" action="{{route('contact.update')}}" method="POST">
+                    @csrf
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <div class="form-group">
@@ -206,7 +207,16 @@
         </section>
 
 
-
+        @if(session('success'))
+<script>
+    alert('{{ session('success') }}');
+</script>
+@endif
+@if(session('error'))
+<script>
+    alert('{{ session('error') }}');
+</script>
+@endif
 
         <!-- <video autoplay muted loop id="backgrounded-video">
             <source src="{{asset('lab/img/minimalbgv.mp4')}}" type="video/mp4">

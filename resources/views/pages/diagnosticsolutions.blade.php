@@ -323,48 +323,47 @@
 					<div class="theimagecen">
 						<img src="{{asset('lab/img/divider.png')}}">
 					</div>
-					<form class="search-form">
-						<div class="form-group">
-							<label for="keyword">Keyword</label>
-							<input type="text" id="keyword" name="keyword" placeholder="Enter keyword">
-						</div>
+					<form class="search-form" action="{{ route('edosSearch') }}" method="GET">
+    <div class="form-group">
+        <label for="keyword">Keyword</label>
+        <input type="text" id="keyword" name="keyword" placeholder="Enter keyword">
+    </div>
 
-						<div class="form-group">
-							<label for="test-name">Test Name</label>
-							<input type="text" id="test-name" name="test-name" placeholder="Enter test name">
-						</div>
+    <div class="form-group">
+        <label for="test-name">Test Name</label>
+        <input type="text" id="test-name" name="test_name" placeholder="Enter test name">
+    </div>
 
-						<div class="form-group">
-							<label for="disease">Disease</label>
-							<select id="disease" name="disease">
-								<option value="">- Any -</option>
-								<option value="disease1">Abortions</option>
-								<option value="disease2">Allergy</option>
-								<option value="disease2">Anaemia</option>
-								<option value="disease2">Cancer</option>
-								<option value="disease2">Infection</option>
-							</select>
-						</div>
+    <div class="form-group">
+        <label for="disease">Disease</label>
+        <select id="disease" name="disease">
+            <option value="">- Any -</option>
+			@foreach($uniqueDiseases as $disease)
+                                        <option value="{{ $disease }}" {{ request('disease') == $disease ? 'selected' : '' }} style="white-space: normal; word-wrap: break-word; overflow-wrap: break-word; width: 100px;">
+                                            {{ $disease }}
+                                        </option>
+                                        @endforeach
+        </select>
+    </div>
 
-						<div class="form-group">
-							<label for="speciality">Speciality</label>
-							<select id="speciality" name="speciality">
-								<option value="">- Any -</option>
-								<option value="speciality1">Allergy specialist</option>
-								<option value="speciality2">Cardiologist</option>
-								<option value="speciality2">Diabetologist</option>
-								<option value="speciality2">Gynaecologist</option>
-								<option value="speciality2">Nephrologist</option>
+    <div class="form-group">
+        <label for="speciality">Speciality</label>
+        <select id="speciality" name="speciality">
+            <option value="">- Any -</option>
+			@foreach($uniqueSpecialties as $specialty)
+                                        <option value="{{ $specialty }}" {{ request('speciality') == $specialty ? 'selected' : '' }}>
+                                            {{ $specialty }}
+                                        </option>
+                                        @endforeach
+        </select>
+    </div>
 
-							</select>
-						</div>
+    <div class="button-group">
+        <button type="submit" class="thebtn search-btn">Search</button>
+        <button type="reset" class="thebtn reset-btn">Reset</button>
+    </div>
+</form>
 
-						<div class="button-group">
-							<!-- <button type="submit" class="thebtn search-btn">Search</button> -->
-							<button href="https://edos.mytrustlab.com/" class="thebtn search-btn">Search</button>
-							<button type="reset" class="thebtn reset-btn">Reset</button>
-						</div>
-					</form>
 				</div>
 
 		</section>
@@ -489,7 +488,8 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-6 col-md-12 col-12">
-						<form class="form" action="#">
+					<form class="form" action="{{route('contact.update')}}" method="POST">
+                    @csrf
 							<div class="row">
 								<div class="col-lg-6 col-md-6 col-12">
 									<div class="form-group">
@@ -536,6 +536,16 @@
 			</div>
 		</section>
 
+		@if(session('success'))
+<script>
+    alert('{{ session('success') }}');
+</script>
+@endif
+@if(session('error'))
+<script>
+    alert('{{ session('error') }}');
+</script>
+@endif
 		<!-- End Appointment -->
 
 		<section class="Feautes section" id="blurred-gradient-section">

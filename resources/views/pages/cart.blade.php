@@ -275,6 +275,18 @@
 @endif
 
 
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
 
 <a href="https://wa.me/+919014638633?text=Hello%20I%20want%20to%20book%20a%20home%20collection%20service... 🔬😊"
     class="whatsapp-float" target="_blank">
@@ -317,29 +329,25 @@
             @endforeach
         </div>
     </div>
-
     <div class="cart-right">
-        <!-- Total Charges -->
-        <div class="total-charges">
-            <h4>Total Charges</h4>
-            <div class="subtotal">
-                <span>Subtotal</span>
-                <span id="subtotal">₹{{ number_format($subtotal, 0) }}</span>
-            </div>
-            <div class="total">
-                <span>Total</span>
-                <span id="total">₹{{ number_format($subtotal, 0) }}</span>
-            </div>
-            <form action="{{ route('payu.payments') }}" method="POST">
-                @csrf
-                <input type="hidden" name="subtotal" value="{{ $subtotal }}">
-                <button type="submit" class="pay-btn">Proceed to Pay</button>
-            </form>
+    <div class="total-charges">
+        <h4>Total Charges</h4>
+        <div class="subtotal">
+            <span>Subtotal</span>
+            <span id="subtotal">₹{{ number_format($subtotal, 0) }}</span>
         </div>
+        <div class="total">
+            <span>Total</span>
+            <span id="total">₹{{ number_format($subtotal, 0) }}</span>
+        </div>
+        <form id="payment-form" method="POST" action="{{ route('payu.payment.form') }}">
+            @csrf <!-- CSRF Token -->
+            <input type="hidden" name="subtotal" value="{{ $subtotal }}">
+            <button type="submit" class="btn btn-primary">Proceed to Pay</button>
+        </form>
+        <div id="response-message" class="mt-3"></div>
     </div>
 </div>
-
-
 
 <!-- Start Newsletter Area -->
 <section class="newsletter section">
@@ -450,7 +458,7 @@
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
-<script>
+<!-- <script>
 // Track the total amount dynamically
 let totalAmount = 0;
 
@@ -494,5 +502,43 @@ function payWithRazorpay() {
     const rzp = new Razorpay(options);
     rzp.open();
 }
+</script> -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#payment-form').on('submit', function (event) {
+    event.preventDefault(); // Ensure this works properly
+
+    $.ajax({
+        url: "{{ route('payu.payment.form') }}",
+        type: 'POST',
+        data: $(this).serialize(),
+        success: function (response) {
+            var form = $('<form>', {
+                action: response.redirect_url,
+                method: 'POST'
+            });
+
+            $.each(response.parameters, function (key, value) {
+                $('<input>', {
+                    type: 'hidden',
+                    name: key,
+                    value: value
+                }).appendTo(form);
+            });
+
+            form.appendTo('body').submit();
+        },
+        error: function (xhr) {
+            let message = 'An error occurred. Please try again.';
+            if (xhr.responseJSON && xhr.responseJSON.message) {
+                message = xhr.responseJSON.message;
+            }
+            $('#response-message').html('<div class="alert alert-danger">' + message + '</div>');
+        }
+    });
+});
+
+    });
 </script>
 @endsection

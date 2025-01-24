@@ -495,7 +495,7 @@
                                             <li class="{{ Request::is('cart') ? 'active' : '' }}">
                                                 <a href="{{ route('cart') }}" style="position: relative; padding: 25px 7px; display: inline-block;">
                                                     <img src="{{asset('lab/img/cart.png')}}" alt="eDOS" width="20px" />
-                                                    <span style="color: orangered; font-size: 1.15em; background-color: white; padding: 1%; border-radius: 100%; border: 0.5px solid #1F2B7B; position: absolute; top: -0px; right: -5px; min-width: 20px; text-align: center;">
+                                                    <span style="color: orangered; font-size: 1.15em; background-color: white; padding: 1%; border-radius: 50%; border: 0.5px solid #1F2B7B; position: absolute; top: 2px; right: -5px; width: 25px;height: 25px; align-content: center;    text-align: center;">
                                                         {{ $carts }}
                                                     </span>
                                                 </a>
