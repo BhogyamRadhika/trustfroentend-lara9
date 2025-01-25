@@ -21,6 +21,17 @@
 <!-- End Breadcrumbs -->
 
 <!-- Start Contact Us -->
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
 <section class="contact-us section">
     <div class="container">
         <div class="inner">
@@ -32,12 +43,15 @@
 
                     </div>
                 </div>
+               
                 <div class="col-lg-6">
                     <div class="contact-us-form">
                         <h2>Contact Us</h2>
                         <p>If you have any questions please feel free to contact us.</p>
                         <!-- Form -->
-                        <form class="form" method="post" action="mail/mail.php">
+                        <form class="form"  action="{{route('contact2.update')}}" method="post">
+                        @csrf
+                            
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
@@ -51,7 +65,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <input type="text" name="phone" placeholder="Phone" required="">
+                                        <input type="number" name="phone" placeholder="Phone" required="">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">

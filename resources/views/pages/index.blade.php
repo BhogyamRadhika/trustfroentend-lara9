@@ -837,7 +837,7 @@
             <div class="theimagecen">
                 <img src="{{asset('lab/img/divider.png')}}">
             </div>
-            <form class="search-form" action="{{ route('edosSearch') }}" method="GET">
+            <form class="search-form" action="{{ route('edosSearch') }}" method="GET" target="_blank">
     <div class="form-group">
         <label for="keyword">Keyword</label>
         <input type="text" id="keyword" name="keyword" placeholder="Enter keyword">
@@ -1171,7 +1171,11 @@
         document.getElementById('custom-package-success-modal').style.display = 'none';
     }
 
-    let cart1 = [];
+  let cart1 = [];
+
+// Check if the user is logged in (set this value dynamically from your backend)
+const isUserLoggedIn = {{ auth()->check() ? 'true' : 'false' }};
+const loginURL = "{{ route('login') }}"; // Laravel login route
 
 function openPackageModal(data) {
     console.log("Modal Data:", data);
@@ -1208,7 +1212,14 @@ function openPackageModal(data) {
     // Add event listener for "Add to Cart" button
     const addToCartBtn = modal.querySelector('#add-to-cart-btn-package');
     if (addToCartBtn) {
-        addToCartBtn.onclick = function() {
+        addToCartBtn.onclick = function () {
+            // Check if the user is logged in
+            if (!isUserLoggedIn) {
+                alert("You need to be logged in to add items to the cart!");
+                window.location.href = loginURL; // Redirect to login page
+                return;
+            }
+
             // Add current tests to the cart array
             cart1.push(data.package);
 
@@ -1224,8 +1235,8 @@ function openPackageModal(data) {
                 cart: cart1.map(item => ({
                     test_name: item.title || '',
                     amount: Math.round(item.price * 0.5) || 0,
-                    type: 'Profile'
-                }))
+                    type: 'Profile',
+                })),
             };
 
             fetch(`${APP_URL}/set_cart`, {
@@ -1245,7 +1256,7 @@ function openPackageModal(data) {
                         alert('Failed to add items to cart.');
                     }
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error('Error adding to cart:', error);
                     alert('An error occurred. Please try again.');
                 });
@@ -1262,6 +1273,9 @@ function closePackageModal() {
 }
 
 let cart2 = [];
+
+const isUserLoggedIn2 = {{ auth()->check() ? 'true' : 'false' }};
+const loginURL2 = "{{ route('login') }}"; // Laravel login route
 
 function openProfileModal(data) {
     console.log("Modal Data:", data);
@@ -1300,6 +1314,12 @@ function openProfileModal(data) {
     if (addToCartBtn) {
         addToCartBtn.onclick = function() {
             // Add current tests to the cart array
+            if (!isUserLoggedIn2) {
+                alert("You need to be logged in to add items to the cart!");
+                window.location.href = loginURL2; // Redirect to login page
+                return;
+            }
+
             cart2.push(data.package);
 
             // Log the updated cart
@@ -1352,6 +1372,8 @@ function closeProfileModal() {
 }
 
 let cart3 = [];
+const isUserLoggedIn3 = {{ auth()->check() ? 'true' : 'false' }};
+const loginURL3 = "{{ route('login') }}"; // Laravel login route
 
 function openTestModal(data) {
     console.log("Modal Data:", data);
@@ -1388,6 +1410,12 @@ function openTestModal(data) {
     // Add event listener for "Add to Cart" button
     const addToCartBtn = modal.querySelector('#add-to-cart-btn-test');
     addToCartBtn.onclick = function () {
+        if (!isUserLoggedIn3) {
+                alert("You need to be logged in to add items to the cart!");
+                window.location.href = loginURL3; // Redirect to login page
+                return;
+            }
+
         cart3.push(data.package);
 
         console.log("Updated Cart:", cart3);

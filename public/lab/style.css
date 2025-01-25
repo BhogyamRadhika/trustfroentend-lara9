@@ -656,6 +656,7 @@ h2 {
 }
 
 .item img {
+	margin: auto;
     width: 90px;
     height: 90px;
     border-radius: 50%;
@@ -4906,6 +4907,7 @@ button:hover {
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	font-size: 14px;
+	background-color: white;
   }
 
   .form-group input[type="submit"] {

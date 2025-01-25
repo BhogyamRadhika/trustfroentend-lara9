@@ -35,7 +35,7 @@
 		<div class="container-login100" style="background-image: url('{{asset('lab/img/loginbg.png')}}');">
 			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
 				<!-- <form class="login100-form validate-form"> -->
-				<form method="POST" action="{{ route('login') }}">
+				<form method="POST" action="{{ route('login.post') }}">
 				@csrf
 					<span class="login100-form-title p-b-49">
 						Login

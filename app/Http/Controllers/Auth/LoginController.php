@@ -71,7 +71,10 @@ class LoginController extends Controller
         // Log the user in
         auth()->login($user);
 
-        // Redirect to dashboard or intended route
-        return redirect()->route('index');
+        
+        //return redirect()->route('index');
+
+        return redirect()->intended('/index');
+
     }
 }

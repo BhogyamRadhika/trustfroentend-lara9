@@ -323,7 +323,7 @@
 					<div class="theimagecen">
 						<img src="{{asset('lab/img/divider.png')}}">
 					</div>
-					<form class="search-form" action="{{ route('edosSearch') }}" method="GET">
+					<form class="search-form" action="{{ route('edosSearch') }}" method="GET" target="_blank">
     <div class="form-group">
         <label for="keyword">Keyword</label>
         <input type="text" id="keyword" name="keyword" placeholder="Enter keyword">

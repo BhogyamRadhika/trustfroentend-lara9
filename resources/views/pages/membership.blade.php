@@ -228,14 +228,21 @@
 								</li>
 							</ul>
 							
-                <input type="hidden" name="plan" value="standered">
-                <input type="hidden" name="amount" value="999">
-                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                <input type="hidden" name="user_email" value="{{ auth()->user()->email }}">
-				<button type="submit" 
+
+	@if(auth()->check())
+    <input type="hidden" name="plan" value="standered">
+    <input type="hidden" name="amount" value="999">
+    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+    <input type="hidden" name="user_email" value="{{ auth()->user()->email }}">
+    <button type="submit" 
             class="py-2.5 px-5 bg-indigo-600 shadow-sm rounded-full transition-all duration-500 text-base text-white font-semibold text-center w-fit block mx-auto hover:bg-indigo-700">
         Purchase Plan
     </button>
+@else
+    <!-- Show a message or redirect the user -->
+    <p class="text-red-500 text-center">Please <a href="{{ route('login') }}" class="underline">log in</a> to purchase a plan.</p>
+@endif
+
 							</form>
 						</div>
 					</div>
@@ -312,14 +319,19 @@
 									<span>All Widget Access</span>
 								</li>
 							</ul>
-							<input type="hidden" name="plan" value="platinum">
-                <input type="hidden" name="amount" value="1999">
-                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                <input type="hidden" name="user_email" value="{{ auth()->user()->email }}">
-				<button type="submit" 
+							@if(auth()->check())
+    <input type="hidden" name="plan" value="platinum">
+    <input type="hidden" name="amount" value="1999">
+    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+    <input type="hidden" name="user_email" value="{{ auth()->user()->email }}">
+    <button type="submit" 
             class="py-2.5 px-5 bg-indigo-600 shadow-sm rounded-full transition-all duration-500 text-base text-white font-semibold text-center w-fit block mx-auto hover:bg-indigo-700">
         Purchase Plan
     </button>
+@else
+    <!-- Show a message or redirect the user -->
+    <p class="text-red-500 text-center">Please <a href="{{ route('login') }}" class="underline">log in</a> to purchase a plan.</p>
+@endif
 							</form>
 						</div>
 					</div>

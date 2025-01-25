@@ -1244,4 +1244,18 @@ private function sendWhatsAppMessagePay($phone, $firstname, $txnid, $amount)
     }
 }
 
+
+public function updateContact2(Request $request){
+    $validate=$request->validate([
+        'name'=>'required',
+        'email'=>'required',
+        'phone'=>'required',
+    ]);
+    $data=DB::table('contact_details')->updateOrInsert(['name'=>$request->name,'email'=>$request->email,'phone'=>$request->phone,'subject'=>$request->subject,'description'=>$request->message]);
+    if($data){
+        return redirect()->back()->with('success','successfully sent the details');
+    }else{
+        return redirect()->back()->with('error','can not send the data');
+    }
+}
 }
